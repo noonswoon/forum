@@ -1,0 +1,7 @@
+﻿namespace Noonswoon.CommandLineTool.NAntProjects
+{
+    public class NightlyBuild
+    {
+         
+    }
+}

@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E5F2E463-0065-42B8-9F13-A56FA319E1C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Noonswoon.Community.Configuration</RootNamespace>
+    <AssemblyName>Noonswoon.Community.Configuration</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Nini">
+      <HintPath>..\packages\Nini\DotNet\2.0\Nini.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppConfigFactory.cs" />
+    <Compile Include="Configs\AmazonConfig.cs" />
+    <Compile Include="Configs\CampaignConfig.cs" />
+    <Compile Include="Configs\DeviceConfig.cs" />
+    <Compile Include="Configs\FacebookConfig.cs" />
+    <Compile Include="Configs\PaymentConfig.cs" />
+    <Compile Include="Configs\AppConfig.cs" />
+    <Compile Include="Configs\RewardConfig.cs" />
+    <Compile Include="Configs\SecurityConfig.cs" />
+    <Compile Include="Configs\ServerVersion.cs" />
+    <Compile Include="Configs\SmsConfig.cs" />
+    <Compile Include="Configs\TimeTravelConfig.cs" />
+    <Compile Include="Configs\UserDefaultPropertyConfig.cs" />
+    <Compile Include="Configs\EmailConfig.cs" />
+    <Compile Include="Configs\AppSetting.Queue.cs" />
+    <Compile Include="Configs\ChatConfig.cs" />
+    <Compile Include="Configs\DefaultConfigValue.cs" />
+    <Compile Include="Configs\ConfigSectionBase.cs" />
+    <Compile Include="Configs\CountryConfigAttirbute.cs" />
+    <Compile Include="Configs\GlobalConfigAttribute.cs" />
+    <Compile Include="Configs\InviteConfig.cs" />
+    <Compile Include="Configs\MatchConfig.cs" />
+    <Compile Include="Configs\PushNotificationConfig.cs" />
+    <Compile Include="Configs\StatisticConfig.cs" />
+    <Compile Include="Configs\SystemConfig.cs" />
+    <Compile Include="Configs\TargetedUserConfig.cs" />
+    <Compile Include="Configs\UserLanguageAttribute.cs" />
+    <Compile Include="HttpApplicationXmlConfigContainer.cs" />
+    <Compile Include="IXmlConfigContainer.cs" />
+    <Compile Include="IXmlConfigQuery.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThreadXmlConfigContainer.cs" />
+    <Compile Include="XmlConfig.cs" />
+    <Compile Include="XmlConfigQuery.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BuildFiles\ConfigurationTransformer.build" />
+    <None Include="BuildFiles\Main.build" />
+    <None Include="BuildFiles\Main.bat" />
+    <None Include="Environments\VisualStudioConfigurations\Debug.properties">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Environments\VisualStudioConfigurations\Release.properties">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Templates\WebTemplate.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Templates\ServiceConfiguration.Cloud.Template.cscfg">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Templates\ServiceDefinition.Template.csdef">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>"$(SolutionDir)nant/nant.exe" /f:"$(SolutionDir)Noonswoon.Community.Configuration/BuildFiles/Main.build"
+
+
+"$(SolutionDir)nant/nant.exe"  Web /f:"$(SolutionDir)Noonswoon.Community.Configuration/BuildFiles/ConfigurationTransformer.build" -D:Configuration="$(ConfigurationName)"
+
+"$(SolutionDir)nant/nant.exe"   Azure /f:"$(SolutionDir)Noonswoon.Community.Configuration/BuildFiles/ConfigurationTransformer.build" -D:Configuration="$(ConfigurationName)"
+
+
+exit 0
+</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

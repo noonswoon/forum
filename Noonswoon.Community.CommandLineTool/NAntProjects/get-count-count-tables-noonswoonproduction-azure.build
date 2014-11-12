@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project name="ConfigTransformer" >
+<property name="connstring" value="Provider=SQLOLEDB;Driver={SQL Server Native Client 10.0};Server=tcp:qm4ajrvahd.database.windows.net,1433;Database=NoonswoonProduction;Uid=kycpgbsaivkbzhwh@qm4ajrvahd;Pwd=7YvqVmYBQsPULr5NNAbJYd7B6JhNYYJ4DWMNRZXkxRJhjvWAKBAGGqm3Z2tkejLZ;Encrypt=yes;Connection Timeout=30;"/>
+
+
+<sql connstring="${connstring}"
+    transaction="false"
+    delimiter=";"
+    delimstyle="Normal"
+    print="true"
+    source="queries/get-count-tables.sql"
+    />
+</project>
+

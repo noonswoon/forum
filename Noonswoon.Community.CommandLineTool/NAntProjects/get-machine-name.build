@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<project name="FindUsernameMachineName">
+	<property name="username" value="${environment::get-user-name()}" overwrite="false" />
+	<property name="machineName" value="${environment::get-machine-name()}" overwrite="false" />
+
+
+	<echo message="username: ${username}"/>
+	<echo message="machineName: ${machineName}"/>
+
+</project>

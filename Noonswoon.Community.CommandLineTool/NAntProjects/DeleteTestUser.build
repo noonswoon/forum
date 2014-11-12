@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="DeleteTestUser" >
+    
+<property name="connstring" value="Server=nssqlweb.cloudapp.net;Database=NoonswoonDevelopment;User ID=noondevsa;Password=MWKuWop64Wgre8HvrabvsyDqx6g5yJdNYy5xVqmjqWdf8EVDeyWTmQSnru6YhsFt;"/>
+
+
+<sql connstring="Provider=SQLOLEDB;${connstring}"
+    transaction="false"
+    delimiter=";"
+    delimstyle="Normal"
+    print="true">
+
+    EXEC dbo.uspDeleteUserAndRelatedDataByFacebookId @facebookId = 1064101575 -- bigint
+
+</sql>
+
+
+</project>
+

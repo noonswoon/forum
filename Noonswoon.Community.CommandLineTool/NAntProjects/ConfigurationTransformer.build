@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<project>
+
+    <property name="Username" value="${environment::get-user-name()}" overwrite="false" />
+    <property name="MachineName" value="${environment::get-machine-name()}" overwrite="false" />
+    <property name="ProjectDir" value="${project::get-base-directory()}"/>
+
+    <property name="SolutionDir" value="${ProjectDir}/../../"/> 
+
+    <echo message="SolutionDir: ${SolutionDir}"/>
+    <echo message="Configuration: ${Configuration}"/>
+    <echo message="ProjectDir: ${ProjectDir}"/>
+
+    <include buildfile="../Environments/VisualStudioConfigurations/${Configuration}.properties"
+             failonerror="true" if="${Configuration != ''}" />
+
+    <include buildfile="../Environments/Machines/${MachineName}.properties"
+             failonerror="false" if="${MachineName != ''}" />
+
+    <include buildfile="../Environments/WindowsUsers/${Username}.properties"
+             failonerror="false" if="${Username != ''}" />
+
+
+    <target name="SpecificCityBackgroundWorker">
+        <!--it important to note that template file must have .config extension-->
+        <!--output for CodeSanook.MicroBlog.Tests.Integration project-->
+
+    <property name="LogFilePath" value="${SolutionDir}Logs/log-file-${target::get-current-target()}.txt"/>
+    <echo message="LogFilePath: ${LogFilePath}"/>
+
+        <copy file="../Templates/WorkerTemplate.xml"
+              tofile="../../Noonswoon.SpecificCityBackgroundWorker/App.config"
+              inputencoding="utf-8" outputencoding="utf-8" overwrite="true">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        </copy>
+    </target>
+
+    <target name="UniversalBackgroundWorker">
+
+    <property name="LogFilePath" value="${SolutionDir}Logs/log-file-${target::get-current-target()}.txt"/>
+    <echo message="LogFilePath: ${LogFilePath}"/>
+        <!--it important to note that template file must have .config extension-->
+        <!--output for CodeSanook.MicroBlog.Tests.Integration project-->
+        <copy file="../Templates/WorkerTemplate.xml"
+              tofile="../../Noonswoon.UniversalBackgroundWorker/App.config"
+              inputencoding="utf-8" outputencoding="utf-8" overwrite="true">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        </copy>
+    </target>
+
+    <!--output to web project-->
+    <target name="Web">
+        <copy file="../Templates/WebTemplate.xml"
+              tofile="../../Noonswoon.Web/Web.config"
+              inputencoding="utf-8" outputencoding="utf-8" overwrite="true">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        </copy>
+    </target>
+
+
+    <!--#region test projects-->
+    <target name="IntegrationTest">
+        <if test="${Configuration != 'Debug'}">
+            <fail message="Configuration: ${Configuration} which is not Debug"/>
+        </if>
+        <copy file="../Templates/TestTemplate.xml"
+              tofile="../../Tests/Noonswoon.Tests.Integration/App.Config"
+              inputencoding="utf-8" outputencoding="utf-8" overwrite="true">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        </copy>
+    </target>
+    
+
+    <target name="UnitTest">
+        <if test="${Configuration != 'Debug'}">
+            <fail message="Configuration: ${Configuration} which is not Debug"/>
+        </if>
+        <copy file="../Templates/TestTemplate.xml"
+              tofile="../../Tests/Noonswoon.Tests.Unit/App.Config"
+              inputencoding="utf-8" outputencoding="utf-8" overwrite="true">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        </copy>
+    </target>
+    
+   <!--#endregion--> 
+    
+    <target name="PostBuild">
+    </target>
+</project>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<project>
+    
+    <property name="serviceConfigurationCloudPath" value="..\..\Noonswoon.Azure\ServiceConfiguration.Cloud.cscfg"/>
+    <property name="serviceConfigurationLocalPath" value="..\..\Noonswoon.Azure\ServiceConfiguration.Local.cscfg"/>
+    <property name="serviceConfigurationNamespace" value="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" />
+
+    <property name="serviceDefinitionPath" value="..\..\Noonswoon.Azure\ServiceDefinition.csdef"/>
+    <property name="serviceDefinitionNamespace" value="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition"/>
+
+</project>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project name="ConfigTransformer" >
+	<!--
+<property name="connstring" value="Server=6dca21f5-1868-4a42-b6d0-a14800b4ed2b.sqlserver.sequelizer.com;Database=db6dca21f518684a42b6d0a14800b4ed2b;User ID=dmhggqyivlkutmkw;Password=fErdUaUVzLDxUEmRSvFk4EDaNTcDEtbWTC2PDdJiQDXKhHFuoQex7n7Gbrwb6qpg;"/>
+
+-->
+<property name="connstring" value="Provider=SQLOLEDB;Driver={SQL Server Native Client 10.0};Server=tcp:q78p65tak8.database.windows.net,1433;Database=NoonswoonDevelopment;Uid=noonswoon@q78p65tak8;Pwd=dressntie1!;Encrypt=yes;Connection Timeout=30;"/>
+
+
+<script language="C#" prefix="format" > 
+	<code>
+	<![CDATA[                 
+        [Function("format-date")] 
+        public static string FormatDate(DateTime date,string format) 
+
+        { 
+
+	return date.ToString(format); 
+
+        } 
+
+	]]>
+	</code>
+</script> 
+
+<property name="today" value="${format::format-date(datetime::now(),'MM/dd/yyyy')}"/>
+
+<echo message="today = ${today}"/>
+
+<sql connstring="${connstring}"
+    transaction="false"
+    delimiter=";"
+    delimstyle="Normal"
+    print="true"
+    source="queries/get-match-count.sql"
+    />
+</project>
+

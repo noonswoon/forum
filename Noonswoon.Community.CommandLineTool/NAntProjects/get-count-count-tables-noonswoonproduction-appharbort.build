@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<project name="ConfigTransformer" >
+
+<property name="connstring" value="Provider=SQLOLEDB;Server=6dca21f5-1868-4a42-b6d0-a14800b4ed2b.sqlserver.sequelizer.com;Database=db6dca21f518684a42b6d0a14800b4ed2b;User ID=dmhggqyivlkutmkw;Password=fErdUaUVzLDxUEmRSvFk4EDaNTcDEtbWTC2PDdJiQDXKhHFuoQex7n7Gbrwb6qpg;"/>
+
+
+<sql connstring="${connstring}"
+    transaction="false"
+    delimiter=";"
+    delimstyle="Normal"
+    print="true"
+    source="queries/get-count-tables.sql"
+    />
+</project>
+

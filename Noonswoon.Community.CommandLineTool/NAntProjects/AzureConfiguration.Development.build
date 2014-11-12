@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="WebRoleConfig" default="changeSslCert">
+
+   <include buildfile="AzureConfigPath.build" failonerror="true" />
+
+   <!--config value--> 
+    <property name="sslThumbprint" value="1D0BA3883F3D407AA10451F690A8FAB972A41C5C"/>
+    <property name="Noonswoon.Web.InstancesCount" value="1"/>
+    <property name="Noonswoon.UniversalBackgroundWorker.InstancesCount" value="1"/>
+    <property name="Noonswoon.SpecificCityBackgroundWorker.InstancesCount" value="2"/>
+
+    <property name="Noonswoon.Web.VmSize" value="Small"/>
+    <property name="Noonswoon.SpecificCityBackgroundWorker.VmSize" value="Small"/>
+    <property name="Noonswoon.UniversalBackgroundWorker.VmSize" value="Small"/>
+
+    
+    <include buildfile="AzureConfigXmlTransformer.build" failonerror="true" />
+
+</project>

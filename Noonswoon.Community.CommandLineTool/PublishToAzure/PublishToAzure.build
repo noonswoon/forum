@@ -1,0 +1,77 @@
+﻿<?xml version="1.0"?>
+<project name="Deploy" default="publish" >
+    <property name="project.dir" value="${project::get-base-directory()}/"/>
+
+    <property name="solution.dir" value="${project.dir}../../"/>
+    <property name="solution.filename" value="${solution.dir}MVCForum.sln"/>
+
+    <property name="output.dir" value="${solution.dir}build/"/>
+    <property name="publish.dir" value="${solution.dir}publish/"/>
+    <!--<property name="current.dir" value="${directory::get-current-directory()}"/>-->
+
+    <!--output Azure settings-->
+    <echo message="branch = ${branch}"/>
+
+    <echo message="service = ${service}"/>
+    <echo message="storage = ${storage}"/>
+    <echo message="environment= ${environment}"/>
+    <echo message="visualstudio.config = ${visualstudio.config}"/>
+    <echo message="project.dir = ${project.dir}"/>
+    <!--sleep to watch parameters value-->
+    <!--<echo message="current.dir = ${current.dir}"/>-->
+    <sleep seconds="5" />
+
+
+
+
+    
+    
+    <target name="package" description="package project">
+
+
+        <echo message="start building project"/>
+        <delete dir="${output.dir}"/>
+        <mkdir dir="${output.dir}" />
+
+        <delete dir="${publish.dir}"/>
+        <mkdir dir="${publish.dir}" />
+
+        <msbuild project='${solution.filename}' verbosity='detailed' target='Publish'>
+            <property name='Configuration' value='${visualstudio.config}'/>
+            <property name='Platform' value='Any CPU'/>
+            <property name='TargetProfile' value='Cloud'/>
+            <property name='PublishDir' value='${publish.dir}'/>
+            <property name="OutDir" value="${output.dir}"/>
+            <!--end with /-->
+            <property name="SolutionDir" value="${solution.dir}"/>
+        </msbuild>
+
+    </target>
+
+    <target name="publish"  depends="package">
+
+        <echo message="start publishing new deployment"/>
+        <sleep seconds="5" />
+
+        <exec program="powershell" workingdir="${project.dir}">
+            <arg value='-File "${project.dir}PublishCloudService.ps1"'/>
+            <arg value='-subscription "BizSpark 1111"'/>
+            <arg value='-service "${service}"'/>
+            <arg value='-storageAccount "${storage}"'/>
+            <arg value='-slot "${environment}"'/>
+
+            <arg value='-deploymentLabel "deployed with PowerShell and Jenkins at ${datetime::now()}"'/>
+
+
+            <arg value='-package "${publish.dir}Noonswoon.Community.Azure.cspkg"'/>
+            <arg value='-configuration "${publish.dir}ServiceConfiguration.Cloud.cscfg"'/>
+
+            <arg value='-publishSettingsFile "${project.dir}AzureSubscriptionFile.publishsettings"'/>
+        </exec>
+
+        <echo message="done publishing new deployment at ${datetime::now()}"/>
+
+    </target>
+
+</project>
+
