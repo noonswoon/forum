@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<project >
+
+    <target name="changeSslCert" >
+        <echo message="ServiceConfigurationRoleConfig.build executed"/>
+        <xmlpoke
+            file="${serviceConfigurationCloudPath}"
+            xpath="/cs:ServiceConfiguration/cs:Role[@name='Noonswoon.Web']/cs:Certificates/cs:Certificate[@name='godaddy']/@thumbprint"
+            value="${sslThumbprint}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceConfigurationNamespace}"/>
+            </namespaces>
+
+        </xmlpoke>
+
+        <xmlpoke
+            file="${serviceConfigurationLocalPath}"
+            xpath="/cs:ServiceConfiguration/cs:Role[@name='Noonswoon.Web']/cs:Certificates/cs:Certificate[@name='godaddy']/@thumbprint"
+            value="${sslThumbprint}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceConfigurationNamespace}"/>
+            </namespaces>
+
+        </xmlpoke>
+        
+
+
+        <xmlpoke
+            file="${serviceConfigurationCloudPath}"
+            xpath="/cs:ServiceConfiguration/cs:Role[@name='Noonswoon.Web']/cs:Instances/@count"
+            value="${Noonswoon.Web.InstancesCount}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceConfigurationNamespace}"/>
+            </namespaces>
+        </xmlpoke>
+
+
+        <xmlpoke
+            file="${serviceConfigurationLocalPath}"
+            xpath="/cs:ServiceConfiguration/cs:Role[@name='Noonswoon.Web']/cs:Instances/@count"
+            value="${Noonswoon.Web.InstancesCount}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceConfigurationNamespace}"/>
+            </namespaces>
+        </xmlpoke>
+        
+
+        <xmlpoke
+            file="${serviceConfigurationCloudPath}"
+            xpath="/cs:ServiceConfiguration/cs:Role[@name='Noonswoon.SpecificCityBackgroundWorker']/cs:Instances/@count"
+            value="${Noonswoon.SpecificCityBackgroundWorker.InstancesCount}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceConfigurationNamespace}"/>
+            </namespaces>
+        </xmlpoke>
+
+        <xmlpoke
+            file="${serviceConfigurationLocalPath}"
+            xpath="/cs:ServiceConfiguration/cs:Role[@name='Noonswoon.SpecificCityBackgroundWorker']/cs:Instances/@count"
+            value="${Noonswoon.SpecificCityBackgroundWorker.InstancesCount}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceConfigurationNamespace}"/>
+            </namespaces>
+        </xmlpoke>
+        
+
+        <xmlpoke
+            file="${serviceConfigurationCloudPath}"
+            xpath="/cs:ServiceConfiguration/cs:Role[@name='Noonswoon.UniversalBackgroundWorker']/cs:Instances/@count"
+            value="${Noonswoon.UniversalBackgroundWorker.InstancesCount}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceConfigurationNamespace}"/>
+            </namespaces>
+        </xmlpoke>
+        
+        
+        <xmlpoke
+            file="${serviceConfigurationLocalPath}"
+            xpath="/cs:ServiceConfiguration/cs:Role[@name='Noonswoon.UniversalBackgroundWorker']/cs:Instances/@count"
+            value="${Noonswoon.UniversalBackgroundWorker.InstancesCount}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceConfigurationNamespace}"/>
+            </namespaces>
+        </xmlpoke>
+
+        <!--  VM Size-->
+        <xmlpoke
+            file="${serviceDefinitionPath}"
+            xpath="/cs:ServiceDefinition/cs:WebRole[@name='Noonswoon.Web']/@vmsize"
+            value="${Noonswoon.Web.VmSize}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceDefinitionNamespace}"/>
+            </namespaces>
+        </xmlpoke>
+
+        <xmlpoke
+            file="${serviceDefinitionPath}"
+            xpath="/cs:ServiceDefinition/cs:WorkerRole[@name='Noonswoon.SpecificCityBackgroundWorker']/@vmsize"
+            value="${Noonswoon.SpecificCityBackgroundWorker.VmSize}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceDefinitionNamespace}"/>
+            </namespaces>
+        </xmlpoke>
+
+        <xmlpoke
+            file="${serviceDefinitionPath}"
+            xpath="/cs:ServiceDefinition/cs:WorkerRole[@name='Noonswoon.UniversalBackgroundWorker']/@vmsize"
+            value="${Noonswoon.SpecificCityBackgroundWorker.VmSize}">
+            <namespaces>
+                <namespace prefix="cs" uri="${serviceDefinitionNamespace}"/>
+            </namespaces>
+        </xmlpoke>
+
+    </target>
+</project>

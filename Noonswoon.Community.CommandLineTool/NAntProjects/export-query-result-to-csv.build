@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--this project is contributed to P'Nate our genius data scientist"-->
+<project name="export query result to csv" >
+
+    <!--configuration value-->
+    <property name="query" value="SELECT Id, FacebookId,FirstName FROM [User]"/>
+    <property name="csvFileName" value="exported_data.csv"/>
+    <!--to turn on off set true or false-->
+    <property name="isUtf8" value="true"/>
+    <property name="isRemoveHeader" value="true"/>
+
+    <property name="serverName" value="nssqlweb.cloudapp.net"/>
+    <property name="databaseName" value="NoonswoonProduction"/>
+    <property name="username" value="kycpgbsaivkbzhwh"/>
+    <property name="password" value="7YvqVmYBQsPULr5NNAbJYd7B6JhNYYJ4DWMNRZXkxRJhjvWAKBAGGqm3Z2tkejLZ"/>
+    <!--<property name="commandLine" value='-S ${serverName} -d ${databaseName} -U ${username} -P ${password} -o "${csvFileName}" -Q "${query}" -W -w 999 -s "," '/>-->
+
+    <property name="commandLine" value='-S ${serverName} -d ${databaseName} -E -o "${csvFileName}" -Q "${query}" -W -w 999 -s "," '/>
+    <!--end configrution-->
+
+
+    <!-- Nant task tasks-->
+    <if test="${isRemoveHeader == 'true'}">
+        <property name="commandLine" value='${commandLine} -h-1'/>
+    </if>
+
+    <if test="${isUtf8 == 'true'}">
+        <property name="commandLine" value='${commandLine} -f 65001'/>
+    </if>
+
+    <echo message="begin exporting to csv"/>
+    <exec program="sqlcmd">
+        <arg value='${commandLine}'/>
+    </exec>
+    <echo message="done exporting to csv"/>
+
+</project>
+

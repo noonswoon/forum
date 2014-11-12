@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project name="Query" >
+	<property name="serverName" value="nssqlweb.cloudapp.net"/>
+	<property name="databaseName" value="NoonswoonDevelopment"/>
+	<property name="username" value="noondevsa"/>
+	<property name="password" value="MWKuWop64Wgre8HvrabvsyDqx6g5yJdNYy5xVqmjqWdf8EVDeyWTmQSnru6YhsFt"/>
+
+	<property name="connstring" value="Server=${serverName};Database=${databaseName};User ID=${username};Password=${password};"/>
+
+
+<!--<property name="connstring" value="Server=noonswoon.cloudapp.net;Database=NoonswoonProduction;User ID=kycpgbsaivkbzhwh;Password=7YvqVmYBQsPULr5NNAbJYd7B6JhNYYJ4DWMNRZXkxRJhjvWAKBAGGqm3Z2tkejLZ;"/>
+-->
+
+<sql connstring="Provider=SQLOLEDB;${connstring}"
+    transaction="false"
+    delimiter=";"
+    delimstyle="Normal"
+    print="true">
+
+    SELECT COUNT(Id) 
+    FROM [User] 
+
+</sql>
+
+
+</project>
+
