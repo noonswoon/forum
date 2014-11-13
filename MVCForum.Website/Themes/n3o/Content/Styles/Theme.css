@@ -613,3 +613,12 @@ footer .row-fluid {
 .footerNav li a{
     color: #e30028;
 }
+.postbody {
+    font-size: 16px;
+    line-height: 35px;
+    text-space-collapse:5px;
+}
+.span9 {
+    background-color: #f9ffe5;
+    padding: 20px;
+}
