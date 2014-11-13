@@ -545,3 +545,80 @@ input[type="radio"].pollanswerselect { margin: 3px 0 0 15px; float: left; }
 
 @media (max-width: 480px) {
 }
+
+.desktop .navbar .navbar-inner {
+    background: linear-gradient(#ed3248 0%, #b71826 50%, #b0101d 50%, #7f0f15 100%) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    height: 54px;
+
+}
+
+.navbar .brand {
+    background: url("../Images/logo.png") no-repeat scroll 0 0 transparent;
+    width: 158px;
+    height: 19px;
+    margin: 18px 0 0 0;
+}
+
+.container-fluid {
+    margin-top: 20px;
+}
+
+.container .nav-collapse ul.nav {
+   
+    margin: 10px 0 0 20px;
+}
+
+.container .nav-collapse ul.nav li a{
+     color: white;
+ }
+.downloadButton {
+    float: right;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.downloadButton li{
+    float: left;
+    margin-left: 25px;
+}
+.downloadButton a {
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 7px;
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5) inset, 0 1px 1px rgba(0, 0, 0, 0.2);
+    margin: 6px 0 0;
+    padding: 8px 18px;
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    
+}
+footer .inner p {
+    display: inline-block;
+}
+footer .row-fluid {
+    display: inline-block;
+}
+.footerNav {
+    display: inline-block;
+    list-style: none;
+}
+
+.footerNav li{
+    display: inline-block;
+    padding: 10px;
+}
+.footerNav li a{
+    color: #e30028;
+}
+.postbody {
+    font-size: 16px;
+    line-height: 35px;
+    text-space-collapse:5px;
+}
+.span9 {
+    background-color: #f9ffe5;
+    padding: 20px;
+}
