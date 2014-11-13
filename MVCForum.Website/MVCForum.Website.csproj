@@ -409,8 +409,6 @@
     <Compile Include="Areas\Admin\ViewModels\SettingsViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\LogFile.txt" />
-    <Content Include="App_Data\lucene_index\NotHere.txt" />
     <Content Include="Content\admin\Admin.css" />
     <Content Include="Content\admin\Images\apple-touch-icon-57-precomposed.png" />
     <Content Include="Content\admin\Images\favicon.ico" />
@@ -805,7 +803,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <Content Include="Content\uploads\readme.txt" />
     <Content Include="Installer\Content\arrow-spinner-blue.gif" />
     <Content Include="Installer\Content\Images\glyphicons\glyphicons_009_magic.png" />
     <Content Include="Installer\Content\Images\glyphicons\glyphicons_042_group.png" />
@@ -1795,6 +1792,7 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Themes\Dark\Views\Extensions\" />
     <Folder Include="Themes\Jungle\Content\Fonts\" />
     <Folder Include="Themes\Jungle\Views\Extensions\" />

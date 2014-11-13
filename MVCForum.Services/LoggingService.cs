@@ -120,6 +120,11 @@ namespace MVCForum.Services
 
             if (!File.Exists(_logFileName))
             {
+              var directory =   Path.GetDirectoryName(_logFileName);
+                if(directory != null && !Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
                 using (File.Create(_logFileName))
                 {
                     // Ensures is closed again after creation
