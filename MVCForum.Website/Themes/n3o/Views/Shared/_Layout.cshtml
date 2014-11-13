@@ -58,19 +58,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="@Url.Action("Index", "Home")">
+                <a class="brand" href="https://noonswoonapp.com">
                     <img src="@Url.Content("~/Content/admin/Images/admin-n3o-logo.png")" alt="Admin Logo" />
                 </a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li><a href="@Url.Action("Index", "Home")">@Html.LanguageString("Layout.Nav.Home")</a></li>
-                        @if (Html.Settings().EnablePoints)
+                        @* @if (Html.Settings().EnablePoints)
                         {
                             <li><a href="@Url.Action("Leaderboard", "Home")">@Html.LanguageString("Layout.Nav.Leaderboard")</a></li>
                         }
 
                         <li><a href="@Url.Action("Activity", "Home")">@Html.LanguageString("Layout.Nav.Activity")</a></li>
-                        <li><a href="@Url.Action("AllBadges", "Badge")">@Html.LanguageString("Layout.Nav.Badges")</a></li>
+                        <li><a href="@Url.Action("AllBadges", "Badge")">@Html.LanguageString("Layout.Nav.Badges")</a></li> *@
 
                         @if (!User.Identity.IsAuthenticated)
                         {
@@ -84,6 +84,14 @@
                         {
                             <li><a href="@Url.Action("Index", "Admin", new { area = "Admin" }, null)">@Html.LanguageString("Layout.Nav.Admin")</a></li>
                         }
+                    </ul>
+                    <ul class="downloadButton">
+                        <li>
+                            <a target="_blank" href="https://itunes.apple.com/th/app/noonswoon/id605218289?ls=1&amp;mt=8" class="button">Download for iPhone</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://play.google.com/store/apps/details?id=com.noonswoon" class="button">Download for Android</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -119,7 +127,21 @@
         @RenderSection("Footer", false)
         <hr>
         <footer>
-            <div class="row-fluid">
+            <div class="inner">
+                <p class="left">&copy; 2014 Noonswoon, Inc.</p>
+                <ul class="footerNav">
+                    <li><a href="https://noonswoonapp.com/premium">Premium</a></li>
+                    <li><a target="_blank" href="http://blog.noonswoonapp.com">Blog</a></li>
+                    <li><a href="https://noonswoonapp.com/careers">Careers</a></li>
+                    <li><a href="https://noonswoonapp.com/media">Media</a></li>
+                    <li><a href="https://noonswoonapp.com/privacy">Privacy Policy</a></li>
+                    <li><a href="https://noonswoonapp.com/terms">Terms of Service</a></li>
+                    <li><a target="_blank" href="http://twitter.com/Noonswoon">Twitter</a></li>
+                    <li><a target="_blank" href="https://www.facebook.com/Noonswoon">Facebook</a></li>
+                </ul>
+                <p>&copy; @DateTime.UtcNow.Year - @Html.LanguageString("Layout.PoweredBy") <a rel="nofollow" href="http://www.mvcforum.com">MVCForum.com</a></p>
+            </div>
+            @*<div class="row-fluid">
                 <div class="span12">
                     <!-- ########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT LICENSE ###########################
                             If you would like to remove the powered by notice, then please vist http://www.mvcforum.com/license -->
@@ -128,7 +150,7 @@
                     </p>
                     <!--########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT LICENSE ########################### -->
                 </div>
-            </div>
+            </div>*@
         </footer>
     </div>
 </body>
