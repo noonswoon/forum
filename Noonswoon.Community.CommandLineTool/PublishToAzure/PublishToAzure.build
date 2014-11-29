@@ -55,7 +55,7 @@
 
         <exec program="powershell" workingdir="${project.dir}">
             <arg value='-File "${project.dir}PublishCloudService.ps1"'/>
-            <arg value='-subscription "BizSpark 1111"'/>
+            <arg value='-subscription "${subscriptionName}"'/>
             <arg value='-service "${service}"'/>
             <arg value='-storageAccount "${storage}"'/>
             <arg value='-slot "${environment}"'/>
@@ -66,7 +66,7 @@
             <arg value='-package "${publish.dir}${cloudProjectName}.cspck"'/>
             <arg value='-configuration "${publish.dir}ServiceConfiguration.Cloud.cscfg"'/>
 
-            <arg value='-publishSettingsFile "${project.dir}${azurePublishSettingName}.publishsettings"'/>
+            <arg value='-publishSettingsFile "${project.dir}${publishSettingName}.publishsettings"'/>
 
         </exec>
 

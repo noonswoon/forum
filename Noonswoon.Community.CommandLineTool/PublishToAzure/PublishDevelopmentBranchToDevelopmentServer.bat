@@ -8,6 +8,7 @@ nant /f:PublishToAzure.build ^
 -D:environment=production ^
 -D:solutionName="MVCForum" ^
 -D:cloudProjectName="Noonswoon.Community.Azure" ^
--D:azurePublishSettingName="golfdigg"
+-D:publishSettingName="golfdigg" ^
+-D:subscriptionName="BizSpark Plus"
 
 pause
