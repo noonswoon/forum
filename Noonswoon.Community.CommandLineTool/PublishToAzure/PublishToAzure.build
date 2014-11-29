@@ -63,7 +63,7 @@
             <arg value='-deploymentLabel "deployed with PowerShell and Jenkins at ${datetime::now()}"'/>
 
 
-            <arg value='-package "${publish.dir}${cloudProjectName}.cspck"'/>
+            <arg value='-package "${publish.dir}${cloudProjectName}.cspkg"'/>
             <arg value='-configuration "${publish.dir}ServiceConfiguration.Cloud.cscfg"'/>
 
             <arg value='-publishSettingsFile "${project.dir}${publishSettingName}.publishsettings"'/>
