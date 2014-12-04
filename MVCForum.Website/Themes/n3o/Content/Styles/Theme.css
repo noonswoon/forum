@@ -1,12 +1,12 @@
 ﻿/*--- Bootstrap Overides ---*/
-.container-fluid { max-width: 1000px; margin-left: auto; margin-right: auto; }
+/*.container-fluid { max-width: 1000px; margin-left: auto; margin-right: auto; }*/
 .navbar .brand { padding-top: 5px; padding-bottom: 3px; }
 .btn-group { margin-top: 10px; margin-bottom: 10px; }
 
 /* --- Set main body styles --- */
 html { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 input[type=submit] { -webkit-appearance: none; }
-body { font-family: Calibri, Arial, Helvetica, sans-serif; }
+/*body { font-family: Calibri, Arial, Helvetica, sans-serif; }*/
 
 /* ---- Lees Clearer ---- */
 .clearer { clear: both; line-height: 1px; height: 1px; font-size: 1px; }
@@ -546,74 +546,25 @@ input[type="radio"].pollanswerselect { margin: 3px 0 0 15px; float: left; }
 @media (max-width: 480px) {
 }
 
-.desktop .navbar .navbar-inner {
-    background: linear-gradient(#ed3248 0%, #b71826 50%, #b0101d 50%, #7f0f15 100%) !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    height: 54px;
-
+/*-------------------------------------Common CSS Rules For All Pages--------------------------------*/
+h3 {
+    font-size: 18px;    
 }
-
-.navbar .brand {
-    background: url("../Images/logo.png") no-repeat scroll 0 0 transparent;
-    width: 158px;
-    height: 19px;
-    margin: 18px 0 0 0;
+.topicrowdetails h3 a {
+    font-family: 'DBAdmanXRegular';
+    color: black;
+    font-size: 22px;
 }
-
-.container-fluid {
-    margin-top: 20px;
+.statsblock {
+    height: 60px;
 }
-
-.container .nav-collapse ul.nav {
-   
-    margin: 10px 0 0 20px;
+.latesttopicheading h2 {
+    font-family: 'SegoeScript';
 }
-
-.container .nav-collapse ul.nav li a{
-     color: white;
- }
-.downloadButton {
-    float: right;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.topicheaderholder h1 {
+    font-family: 'DBAdmanXRegular';
 }
-.downloadButton li{
-    float: left;
-    margin-left: 25px;
-}
-.downloadButton a {
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 7px;
-    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5) inset, 0 1px 1px rgba(0, 0, 0, 0.2);
-    margin: 6px 0 0;
-    padding: 8px 18px;
-    color: #fff;
-    display: block;
-    font-size: 16px;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    
-}
-footer .inner p {
-    display: inline-block;
-}
-footer .row-fluid {
-    display: inline-block;
-}
-.footerNav {
-    display: inline-block;
-    list-style: none;
-}
-
-.footerNav li{
-    display: inline-block;
-    padding: 10px;
-}
-.footerNav li a{
-    color: #e30028;
-}
-.postbody {
+/*.postbody {
     font-size: 16px;
     line-height: 35px;
     text-space-collapse:5px;
@@ -621,4 +572,124 @@ footer .row-fluid {
 .span9 {
     background-color: #fff8dc;
     padding: 20px;
+}*/
+.center {
+    text-align: center;
+}
+
+/*-------------------------------------Header--------------------------------*/
+.navbar{
+    margin-bottom: 0px;
+    /* background-color: #f9ffe5; */
+    height: 40px;
+    font-size: 15px;
+}
+.navbar-brand{
+    background: url('../Images/logo.png') no-repeat center center;
+    background-size: 100% auto;
+    width: 150px;
+    margin-left: 10px !important;
+    margin-right: 10px;
+}
+.navbar-toggle {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+#myNavbar {
+    padding-top: 5px;
+}
+#myNavbar.collapsing, #myNavbar.in{
+    background-color: #fff;
+}
+#myNavbar a{
+    display: block;
+    color: #333;
+    line-height: 25px;
+    text-transform: uppercase;
+}
+#myNavbar a:hover{
+    color: #e3202c;
+}
+
+/*-------------------------------------Footer--------------------------------*/
+#media{
+    text-align: center;
+    line-height: 30px;
+    padding: 20px 0;
+}
+#media li{
+    display: inline-block;
+    height: 30px;
+    margin: 0 25px;
+}
+#media li a{
+    display: block;
+    height: 30px;
+    background: url('../Images/icon-media.png') no-repeat;
+}
+#media li a.thairath{
+    width: 95px;
+    background-position: top left;
+}
+#media li a.bangkokpost{
+    width: 137px;
+    background-position: -95px 0px ;
+}
+#media li a.mcot{
+    width: 49px;
+    background-position: -232px 0px ;
+}
+#media li a.blognone{
+    width: 115px;
+    background-position: -281px 0px ;
+}
+#media li a.thumbups{
+    width: 141px;
+    background-position: -396px 0px ;
+}
+#media li a.e27{
+    width: 63px;
+    background-position: -537px 0px ;
+}
+#media li a.techinasia{
+    width: 157px;
+    background-position: -600px 0px ;
+}
+#media li a.thrillist{
+    width: 61px;
+    background-position: -757px 0px ;
+}
+#media li a.coconutsbangkok{
+    width: 32px;
+    background-position: -818px 0px ;
+}
+
+#menu{
+    text-align: center;
+    line-height: 20px;
+}
+#menu li{
+    display: inline-block;
+    height: 15px;
+    margin-left: 10px;
+    padding-right: 10px;
+    border-right: solid 1px #9d9b88;
+}
+#menu li:last-child{
+    border-right: none;
+}
+#menu li a{
+    display: block;
+    height: 15px;
+    color: #e21e2a;
+}
+#menu li:hover a{
+    text-decoration: none;
+    color: black;
+}
+
+@media (max-width: 770px) {
+    .navbar .nav > li {
+        float: none;
+    }
 }
