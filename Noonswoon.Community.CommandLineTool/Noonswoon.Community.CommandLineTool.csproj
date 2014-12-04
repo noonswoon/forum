@@ -87,6 +87,7 @@
     <None Include="NAntProjects\DeleteLogsFolder.build" />
     <None Include="packages.config" />
     <None Include="PublishToAzure\AzureSubscriptionFile.publishsettings" />
+    <None Include="PublishToAzure\golfdigg.publishsettings" />
     <None Include="PublishToAzure\PublishMasterBranchToProductionServer.bat" />
     <None Include="PublishToAzure\PublishToAzure.build">
       <SubType>Designer</SubType>
@@ -124,7 +125,6 @@
   <ItemGroup>
     <Content Include="NAntProjects\queries\get-count-tables.sql" />
     <Content Include="NAntProjects\queries\get-match-count.sql" />
-    <Content Include="PublishToAzure\note for build server.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

@@ -3,7 +3,7 @@
     <property name="project.dir" value="${project::get-base-directory()}/"/>
 
     <property name="solution.dir" value="${project.dir}../../"/>
-    <property name="solution.filename" value="${solution.dir}MVCForum.sln"/>
+    <property name="solution.filename" value="${solution.dir}${solutionName}.sln"/>
 
     <property name="output.dir" value="${solution.dir}build/"/>
     <property name="publish.dir" value="${solution.dir}publish/"/>
@@ -55,7 +55,7 @@
 
         <exec program="powershell" workingdir="${project.dir}">
             <arg value='-File "${project.dir}PublishCloudService.ps1"'/>
-            <arg value='-subscription "BizSpark 1111"'/>
+            <arg value='-subscription "${subscriptionName}"'/>
             <arg value='-service "${service}"'/>
             <arg value='-storageAccount "${storage}"'/>
             <arg value='-slot "${environment}"'/>
@@ -63,10 +63,11 @@
             <arg value='-deploymentLabel "deployed with PowerShell and Jenkins at ${datetime::now()}"'/>
 
 
-            <arg value='-package "${publish.dir}Noonswoon.Community.Azure.cspkg"'/>
+            <arg value='-package "${publish.dir}${cloudProjectName}.cspkg"'/>
             <arg value='-configuration "${publish.dir}ServiceConfiguration.Cloud.cscfg"'/>
 
-            <arg value='-publishSettingsFile "${project.dir}AzureSubscriptionFile.publishsettings"'/>
+            <arg value='-publishSettingsFile "${project.dir}${publishSettingName}.publishsettings"'/>
+
         </exec>
 
         <echo message="done publishing new deployment at ${datetime::now()}"/>
