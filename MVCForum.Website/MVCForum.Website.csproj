@@ -1464,6 +1464,7 @@
     <Content Include="Themes\n3o\Content\Images\arrow-spinner-blue.gif" />
     <Content Include="Themes\n3o\Content\Images\facebook-connect-large.png" />
     <Content Include="Themes\n3o\Content\Images\favicon.ico" />
+    <Content Include="Themes\n3o\Content\Images\icon-media.png" />
     <Content Include="Themes\n3o\Content\Images\logo.png" />
     <Content Include="Themes\n3o\Content\Images\mail-add.png" />
     <Content Include="Themes\n3o\Content\Images\mail-delete.png" />
@@ -1508,6 +1509,8 @@
     <Content Include="Scripts\admin\Admin.js" />
     <Content Include="Scripts\admin\FadeOutMessage.js" />
     <Content Include="Themes\n3o\Content\Styles\Theme.css" />
+    <Content Include="Themes\n3o\Content\webfontkit\generator_config.txt" />
+    <Content Include="Themes\n3o\Content\webfontkit\stylesheet.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1791,6 +1794,38 @@
     <Content Include="Themes\Dark\Views\Web.config" />
     <Content Include="Views\Shared\_GenericMessage.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Themes\n3o\Content\webfontkit\20355225-PSLxChalalaiClassic.eot" />
+    <Content Include="Themes\n3o\Content\webfontkit\20355225-PSLxChalalaiClassic.svg" />
+    <Content Include="Themes\n3o\Content\webfontkit\20355225-PSLxChalalaiClassic.ttf" />
+    <Content Include="Themes\n3o\Content\webfontkit\20355225-PSLxChalalaiClassic.woff" />
+    <Content Include="Themes\n3o\Content\webfontkit\319061280-segoesc.eot" />
+    <Content Include="Themes\n3o\Content\webfontkit\319061280-segoesc.svg" />
+    <Content Include="Themes\n3o\Content\webfontkit\319061280-segoesc.ttf" />
+    <Content Include="Themes\n3o\Content\webfontkit\319061280-segoesc.woff" />
+    <Content Include="Themes\n3o\Content\webfontkit\859863282-DBSharpX.eot" />
+    <Content Include="Themes\n3o\Content\webfontkit\859863282-DBSharpX.svg" />
+    <Content Include="Themes\n3o\Content\webfontkit\859863282-DBSharpX.ttf" />
+    <Content Include="Themes\n3o\Content\webfontkit\859863282-DBSharpX.woff" />
+    <Content Include="Themes\n3o\Content\webfontkit\dbadmanx.eot" />
+    <Content Include="Themes\n3o\Content\webfontkit\dbadmanx.otf" />
+    <Content Include="Themes\n3o\Content\webfontkit\dbadmanx.svg" />
+    <Content Include="Themes\n3o\Content\webfontkit\dbadmanx.ttf" />
+    <Content Include="Themes\n3o\Content\webfontkit\dbadmanx.woff" />
+    <Content Include="Themes\n3o\Content\webfontkit\thaisansliter1.eot" />
+    <Content Include="Themes\n3o\Content\webfontkit\thaisansliter1.otf" />
+    <Content Include="Themes\n3o\Content\webfontkit\thaisansliter1.svg" />
+    <Content Include="Themes\n3o\Content\webfontkit\thaisansliter1.ttf" />
+    <Content Include="Themes\n3o\Content\webfontkit\thaisansliter1.woff" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew-bold.eot" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew-bold.otf" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew-bold.svg" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew-bold.ttf" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew-bold.woff" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew.eot" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew.otf" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew.svg" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew.ttf" />
+    <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew.woff" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
