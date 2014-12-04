@@ -72,6 +72,18 @@
                     <li><a href="http://community.noonswoonapp.com/">Community</a></li>
                     <li><a href="@Url.Action("Careers", "Home")" title="Careers">Careers</a></li>
                     <li><a href="http://blog.noonswoonapp.com/" title="Blog">Blog</a></li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        if (Html.Settings().SuspendRegistration != true)
+                        {
+                        <li><a href="@Url.Action("Register", "Members")">@Html.LanguageString("Layout.Nav.Register")</a></li>
+                        }
+                        <li><a href="@Url.Action("LogOn", "Members")">@Html.LanguageString("Layout.Nav.Logon")</a></li>
+                    }
+                    @if (User.IsInRole(AppConstants.AdminRoleName))
+                    {
+                        <li><a href="@Url.Action("Index", "Admin", new { area = "Admin" }, null)">@Html.LanguageString("Layout.Nav.Admin")</a></li>
+                    }
                     <!--<li><a href="@Url.Action("index", "premium")">Premium</a></li>
                 <li><a href="@Url.Action("index", "encourager")">To Be An Encourager</a></li>-->
                 </ul>
@@ -158,6 +170,9 @@
         <hr>
         @Html.Action("GetMainStats", "Stats")
         @Html.Action("GetCurrentActiveMembers", "Members")
+        <p>
+            &copy; @DateTime.UtcNow.Year - @Html.LanguageString("Layout.PoweredBy") <a rel="nofollow" href="http://www.mvcforum.com">MVCForum.com</a>
+        </p>
         @RenderSection("Footer", false)
         <hr>
 
