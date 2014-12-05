@@ -543,10 +543,14 @@ input[type="radio"].pollanswerselect { margin: 3px 0 0 15px; float: left; }
     .topicrow .topicstats .statsblock { font-size: 16px; }
 }
 
-@media (max-width: 480px) {
-}
-
 /*-------------------------------------Common CSS Rules For All Pages--------------------------------*/
+.topicheaderholder h1, .categoryheading h2 {
+    font-family: 'DBAdmanXRegular';
+    color: #07507d;
+}
+body {
+    font-size: 15px;
+}
 h3 {
     font-size: 18px;    
 }
@@ -560,12 +564,35 @@ h3 {
 }
 .statsblock {
     height: 60px;
+    border-color: white;
+}
+.topicvotes {
+    background-color: #fdf1c2;
+}
+.topiccomments {
+    background-color: #d5e3f1;
+}
+.topicviews {
+    background-color: #f4d8e1;
+}
+.karmascore {
+    background-color: #fdf1c2;
+    border-color: white;
 }
 .latesttopicheading h2 {
     font-family: 'SegoeScript';
 }
-.topicheaderholder h1 {
-    font-family: 'DBAdmanXRegular';
+.activememberslist img {
+    width: 25px;
+}
+.highearners-box li img {
+    width: 25px;
+}
+.topicrecentavatar img {
+    width: 35px;
+}
+.postmemberavatar img {
+    width: 50px;
 }
 /*.postbody {
     font-size: 16px;
@@ -588,6 +615,8 @@ h3 {
     font-size: 15px;
 }
 .navbar-brand{
+    position: relative;
+    z-index: 10;
     background: url('../Images/logo.png') no-repeat center center;
     background-size: 100% auto;
     width: 150px;
@@ -689,6 +718,27 @@ h3 {
 #menu li:hover a{
     text-decoration: none;
     color: black;
+}
+
+@media (max-width: 480px) {
+    footer #menu{
+        padding-left: 5px;
+        border-left: solid 10px #e21e2a;
+    }
+    footer #menu li{
+        display: block;
+        border: none;
+        height: 25px;
+        text-align: left;
+    }
+    footer #menu li:hover a{
+        background-color: #fff8dc;
+        font-size: larger;
+    }
+    footer #menu ul{
+        padding-left: 0;
+        margin-left: 0;
+    }
 }
 
 @media (max-width: 770px) {

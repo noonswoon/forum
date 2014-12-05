@@ -70,7 +70,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav dropdown-toggle">
                     <li><a href="http://community.noonswoonapp.com/">Community</a></li>
-                    <li><a href="@Url.Action("Careers", "Home")" title="Careers">Careers</a></li>
+                    <li><a href="http://noonswoonapp.com/home/careers" title="Careers">Careers</a></li>
                     <li><a href="http://blog.noonswoonapp.com/" title="Blog">Blog</a></li>
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -174,9 +174,10 @@
             &copy; @DateTime.UtcNow.Year - @Html.LanguageString("Layout.PoweredBy") <a rel="nofollow" href="http://www.mvcforum.com">MVCForum.com</a>
         </p>
         @RenderSection("Footer", false)
-        <hr>
+        <hr>        
+    </div>
 
-        <!-- Footer -->
+    <!-- Footer -->
         <footer>
             <div class="container-fluid" id="media">
                 <ul>
@@ -217,6 +218,5 @@
                     <!--########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT LICENSE ########################### -->
                 </div>
             </div>*@
-    </div>
 </body>
 </html>
