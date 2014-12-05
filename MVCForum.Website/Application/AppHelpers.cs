@@ -24,6 +24,7 @@ namespace MVCForum.Website.Application
     {
         private static ILog _log = LogManager.GetLogger(typeof(AppHelpers).Name);
         public const string BLOB_ROOT_URL = "https://nswebcontent.blob.core.windows.net";
+        public const string CDN_ROOT_URL = "https://az697144.vo.msecnd.net";
 
         #region Application
 
@@ -317,7 +318,7 @@ namespace MVCForum.Website.Application
             {
                 // Has an avatar image
                 var imageSizeString = string.Format("?width={0}&crop=0,0,{0},{0}", size);
-                var memberImageUrl = Url.Combine(BLOB_ROOT_URL,
+                var memberImageUrl = Url.Combine(CDN_ROOT_URL,
                     ConfigurationManager.AppSettings["ImageBlobContainerName"],
                     GetUploadBlobDirectory(userId), avatar);
                 _log.DebugFormat("memberImageUrl: {0}", memberImageUrl);
