@@ -17,18 +17,23 @@
 
     @(Bundle.Css()
               .Add("~/Content/Styles/bootstrap.css")
+              .Add("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
               .Add("~/Content/Styles/bootstrap-responsive.css")
               .Add("~/Content/Styles/bootstrap-prettify.css")
               .Add(themePath + "/Content/Styles/theme.css")
+              .Add(themePath + "/Content/webfontkit/stylesheet.css")
               .MvcRender("~/content/cache/combined_" + theme + "_#.css"))
 
     <style type="text/css">
-        body { padding-top: 50px; padding-bottom: 40px; }
+        body {
+            padding-top: 50px;
+            padding-bottom: 40px;
+        }
     </style>
-        <!--[if lt IE 9]>
+    <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        <!--[if lt IE 8]>
+    <!--[if lt IE 8]>
             <script src="@Url.Content("~/scripts/json3.js")"></script>
         <![endif]-->
     <link rel="shortcut icon" href="@Url.Content(themePath + "/content/images/favicon.ico")">
@@ -39,8 +44,9 @@
     @(Bundle.JavaScript()
               .Add("~/Scripts/jquery-1.8.0.min.js")
               .Add("~/Scripts/jquery.unobtrusive-ajax.js")
-              .Add("~/Scripts/bootstrap.min.js")
               .Add("~/Scripts/jquery.placeholder.min.js")
+              .Add("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
+            //.Add("~/Scripts/bootstrap.min.js")              
               .Add("~/Scripts/bootstrap-prettify.js")
               .Add("~/Scripts/general.js")
               .Add(themePath + "/Content/Scripts/general.js")
@@ -50,7 +56,47 @@
 </head>
 <body class="@globalClass">
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    Community <span class="caret"></span>
+                </button>
+
+                <a class="navbar-brand" href="https://noonswoonapp.com"></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav dropdown-toggle">
+                    <li><a href="http://community.noonswoonapp.com/">Community</a></li>
+                    <li><a href="@Url.Action("Careers", "Home")" title="Careers">Careers</a></li>
+                    <li><a href="http://blog.noonswoonapp.com/" title="Blog">Blog</a></li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        if (Html.Settings().SuspendRegistration != true)
+                        {
+                        <li><a href="@Url.Action("Register", "Members")">@Html.LanguageString("Layout.Nav.Register")</a></li>
+                        }
+                        <li><a href="@Url.Action("LogOn", "Members")">@Html.LanguageString("Layout.Nav.Logon")</a></li>
+                    }
+                    @if (User.IsInRole(AppConstants.AdminRoleName))
+                    {
+                        <li><a href="@Url.Action("Index", "Admin", new { area = "Admin" }, null)">@Html.LanguageString("Layout.Nav.Admin")</a></li>
+                    }
+                    <!--<li><a href="@Url.Action("index", "premium")">Premium</a></li>
+                <li><a href="@Url.Action("index", "encourager")">To Be An Encourager</a></li>-->
+                </ul>
+
+                <!--<ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Already Member ? <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>-->
+            </div>
+        </div>
+    </nav>
+
+
+    <!--<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
                 <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -96,7 +142,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
 
 
@@ -124,24 +170,44 @@
         <hr>
         @Html.Action("GetMainStats", "Stats")
         @Html.Action("GetCurrentActiveMembers", "Members")
+        <p>
+            &copy; @DateTime.UtcNow.Year - @Html.LanguageString("Layout.PoweredBy") <a rel="nofollow" href="http://www.mvcforum.com">MVCForum.com</a>
+        </p>
         @RenderSection("Footer", false)
         <hr>
+
+        <!-- Footer -->
         <footer>
-            <div class="inner">
-                <p class="left">&copy; 2014 Noonswoon, Inc.</p>
-                <ul class="footerNav">
-                    <li><a href="https://noonswoonapp.com/premium">Premium</a></li>
-                    <li><a target="_blank" href="http://blog.noonswoonapp.com">Blog</a></li>
-                    <li><a href="https://noonswoonapp.com/careers">Careers</a></li>
-                    <li><a href="https://noonswoonapp.com/media">Media</a></li>
-                    <li><a href="https://noonswoonapp.com/privacy">Privacy Policy</a></li>
-                    <li><a href="https://noonswoonapp.com/terms">Terms of Service</a></li>
-                    <li><a target="_blank" href="http://twitter.com/Noonswoon">Twitter</a></li>
-                    <li><a target="_blank" href="https://www.facebook.com/Noonswoon">Facebook</a></li>
+            <div class="container-fluid" id="media">
+                <ul>
+                    <li><a href="https://www.thairath.co.th/content/life/359586" class="thairath" title="ไทยรัฐ" target="_blank"></a></li>
+                    <li><a href="http://www.bangkokpost.com/tech/gadget/364519/meet-your-matchmaker" class="bangkokpost" title="บางกอกโพสต์" target="_blank"></a></li>
+                    <li><a href="http://www.youtube.com/watch?v=Nl53UspVkx0" class="mcot" title="MCOT" target="_blank"></a></li>
+                    <li><a href="https://www.blognone.com/node/47197" class="blognone" title="Blognone" target="_blank"></a></li>
+                    <li><a href="http://thumbsup.in.th/2013/10/ais-noonswoon-silicon-valley/" class="thumbups" title="Thumbups" target="_blank"></a></li>
+                    <li><a href="http://e27.co/matchmaking-app-noonswoon-closes-seed-round-at-us3m-valuation" class="e27" title="e27" target="_blank"></a></li>
+                    <li><a href="https://www.techinasia.com/thai-telco-ais-flirty-noonswoon-dating-app/" class="techinasia" title="Tech in Asia" target="_blank"></a></li>
+                    <li><a href="http://www.thrillist.com/own/nation/the-five-must-have-smartphone-apps-june" class="thrillist" title="Thrillist" target="_blank"></a></li>
+                    <li><a href="http://bangkok.coconuts.co/2013/06/27/deep-swoon-noonswoon-aiming-change-way-bangkokians-look-love" class="coconutsbangkok" title="Coconuts Bangkok" target="_blank"></a></li>
                 </ul>
-                <p>&copy; @DateTime.UtcNow.Year - @Html.LanguageString("Layout.PoweredBy") <a rel="nofollow" href="http://www.mvcforum.com">MVCForum.com</a></p>
             </div>
-            @*<div class="row-fluid">
+            <div class="container-fluid" id="menu">
+                <ul>
+                    <li><a href="#" title="About Us">About Us</a></li>
+                    <li><a href="http://blog.noonswoonapp.com" target="_blank" title="Blog">Blog</a></li>
+                    <li><a href="http://community.noonswoonapp.com/" title="Community">Community</a></li>
+                    <li><a href="@Url.Action("careers", "home")" title="Careers">Careers</a></li>
+                    <li><a href="mailto:support@noonswoon.com" title="Contact Us">Contact Us</a></li>
+                    <li><a href="@Url.Action("privacy", "home")" title="Privacy Policy">Privacy Policy</a></li>
+                    <li><a href="@Url.Action("terms", "home")" title="Terms of Service">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="container-fluid center">
+                © 2013 - @DateTime.UtcNow.Year Noonswoon, Inc.
+            </div>
+        </footer>
+
+        @*<div class="row-fluid">
                 <div class="span12">
                     <!-- ########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT LICENSE ###########################
                             If you would like to remove the powered by notice, then please vist http://www.mvcforum.com/license -->
@@ -151,7 +217,6 @@
                     <!--########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT LICENSE ########################### -->
                 </div>
             </div>*@
-        </footer>
     </div>
 </body>
 </html>
