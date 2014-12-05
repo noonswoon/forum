@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -315,7 +317,7 @@ namespace MVCForum.Website.Application
             {
                 // Has an avatar image
                 var imageSizeString = string.Format("?width={0}&crop=0,0,{0},{0}", size);
-                var memberImageUrl = Url.Combine(BLOB_ROOT_URL, 
+                var memberImageUrl = Url.Combine(BLOB_ROOT_URL,
                     ConfigurationManager.AppSettings["ImageBlobContainerName"],
                     GetUploadBlobDirectory(userId), avatar);
                 _log.DebugFormat("memberImageUrl: {0}", memberImageUrl);
@@ -360,7 +362,8 @@ namespace MVCForum.Website.Application
                     {
                         allowedFileExtensions = "jpg,jpeg,png,gif";
                     }
-
+                    ImageFormat imageFormat = null;
+                    string fileExtension = null;
                     if (!string.IsNullOrEmpty(allowedFileExtensions))
                     {
                         // Turn into a list and strip unwanted commas as we don't trust users!
@@ -368,7 +371,7 @@ namespace MVCForum.Website.Application
                             .TrimStart(',').TrimEnd(',').Split(',').ToList();
 
                         // Get the file extension
-                        var fileExtension = Path.GetExtension(fileName.ToLower());
+                        fileExtension = Path.GetExtension(fileName.ToLower());
 
                         // If can't work out extension then just error
                         if (string.IsNullOrEmpty(fileExtension))
@@ -389,11 +392,25 @@ namespace MVCForum.Website.Application
                         }
                     }
 
+                    switch (fileExtension)
+                    {
+                        case "jpg":
+                        case "jpeg":
+                            imageFormat = ImageFormat.Jpeg;
+                            break;
+                        case "png":
+                            imageFormat = ImageFormat.Png;
+                            break;
+                        case "gif":
+                            imageFormat = ImageFormat.Gif;
+                            break;
+                    };
+
                     // Sort the file name
                     var newFileName = string.Format("{0}_{1}", GuidComb.GenerateComb(),
                         fileName.Trim(' ').Replace("_", "-").Replace(" ", "-").ToLower());
                     _log.DebugFormat("uploadDirectoryPath: {0}, newFileName: {1}", uploadDirectoryPath, newFileName);
-                    var blobName =Url.Combine(uploadDirectoryPath, newFileName);
+                    var blobName = Url.Combine(uploadDirectoryPath, newFileName);
                     _log.DebugFormat("blobName: {0}", blobName);
 
                     // Save the file to disk
@@ -405,7 +422,7 @@ namespace MVCForum.Website.Application
                     // Create the blob client.
                     var blobClient = storageAccount.CreateCloudBlobClient();
                     // Retrieve reference to a previously created container.
-                    var containerName = ConfigurationManager.AppSettings["ImageBlobContainerName"]; 
+                    var containerName = ConfigurationManager.AppSettings["ImageBlobContainerName"];
                     var container = blobClient.GetContainerReference(containerName);
 
                     // Retrieve reference to a blob named "myblob".
@@ -415,12 +432,17 @@ namespace MVCForum.Website.Application
 
                     var blockBlob = container.GetBlockBlobReference(blobName);
                     // Create or overwrite the "myblob" blob with contents from a local file.
-                    using (file.InputStream)
+                    using (var fileStream = file.InputStream)
+                    using (var image = Image.FromStream(fileStream).ScaleToSquare(100))
+                    using (var memoryStream = new MemoryStream())
                     {
-                        blockBlob.UploadFromStream(file.InputStream);
+                        _log.DebugFormat("imageFormat: {0}", imageFormat);
+                        image.Save(memoryStream, imageFormat);
+                        _log.DebugFormat("memoryStream.Length: {0}",memoryStream.Length);
+                        blockBlob.UploadFromByteArray(memoryStream.ToArray(), 0,(int) memoryStream.Length);
                     }
 
-                    var fileUrl =Url.Combine(BLOB_ROOT_URL,containerName, blobName);
+                    var fileUrl = Url.Combine(BLOB_ROOT_URL, containerName, blobName);
                     _log.DebugFormat("uploaded fileUrl: {0}", fileUrl);
 
                     upResult.UploadedFileName = newFileName;
