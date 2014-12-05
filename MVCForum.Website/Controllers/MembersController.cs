@@ -1140,19 +1140,14 @@ namespace MVCForum.Website.Controllers
                 // Sort image out first
                 if (userModel.Files != null)
                 {
-                    // Before we save anything, check the user already has an upload folder and if not create one
-                    var uploadFolderPath = Server.MapPath(string.Concat(AppConstants.UploadFolderPath, LoggedOnUser.Id));
-                    if (!Directory.Exists(uploadFolderPath))
-                    {
-                        Directory.CreateDirectory(uploadFolderPath);
-                    }
 
                     // Loop through each file and get the file info and save to the users folder and Db
                     var file = userModel.Files[0];
                     if (file != null)
                     {
                         // If successful then upload the file
-                        var uploadResult = AppHelpers.UploadFile(file, uploadFolderPath, LocalizationService, true);                        
+                        var uploadResult = AppHelpers.UploadFile(file,
+                            AppHelpers.GetUploadBlobDirectory(LoggedOnUser.Id) , LocalizationService, true);                        
 
                         if (!uploadResult.UploadSuccessful)
                         {
