@@ -547,6 +547,9 @@ input[type="radio"].pollanswerselect { margin: 3px 0 0 15px; float: left; }
 }
 
 /*-------------------------------------Common CSS Rules For All Pages--------------------------------*/
+.topicheaderholder h1, .categoryheading h2 {
+    font-family: 'DBAdmanXRegular';
+}
 h3 {
     font-size: 18px;    
 }
@@ -564,9 +567,7 @@ h3 {
 .latesttopicheading h2 {
     font-family: 'SegoeScript';
 }
-.topicheaderholder h1 {
-    font-family: 'DBAdmanXRegular';
-}
+
 /*.postbody {
     font-size: 16px;
     line-height: 35px;
