@@ -5,7 +5,10 @@
 
     <ul>
         <li>
-            <a href="@Url.Action("Edit", "Members", new { id = Model.CurrentUser.Id })">@Html.LanguageString("Buttons.Edit") @Model.CurrentUser.UserName</a>
+            <a href="@Url.Action("Edit", "Members", new { id = Model.CurrentUser.Id })">@Html.LanguageString("Buttons.Edit") Profile @*@Model.CurrentUser.UserName*@</a>
+            
+        </li>
+        <li>@Html.Raw(string.Format("<a href=\"{0}\">{1}</a>", Url.Action("ChangePassword"), Html.LanguageString("Members.ChangePassword.Title")))
         </li>
 
         @if(Html.Settings().EnablePrivateMessages && Model.CurrentUser.DisablePrivateMessages != true)

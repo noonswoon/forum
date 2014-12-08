@@ -33,9 +33,13 @@
     var disablePosting = Model.User != null && (Model.User.DisablePosting == true);
 }
 @section SocialMeta {
+    <!--Facebook Open Graph -->
     <meta property="og:title" content="@ViewBag.Title" />
     <meta property="og:url" content="@HttpContext.Current.Request.Url.AbsoluteUri" />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://d23mgza11bkcj.cloudfront.net/pics/Noonswoon-Logo-On-White.png" />
+     <!--End Facebook Open Graph -->
+
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@ViewBag.Title" />
     <meta name="twitter:description" content="@ViewBag.MetaDesc" />
