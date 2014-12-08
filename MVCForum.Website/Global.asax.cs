@@ -79,7 +79,7 @@ namespace MVCForum.Website
 
             routes.MapRouteLowercase(
                 "topicUrls", // Route name
-                string.Concat(AppConstants.TopicUrlIdentifier, "/{slug}"), // URL with parameters
+                string.Concat(AppConstants.TopicUrlIdentifier, "/{slug}"), // URL with parameters //chat/{chatTitle}
                 new { controller = "Topic", action = "Show", slug = UrlParameter.Optional } // Parameter defaults
             );
 
