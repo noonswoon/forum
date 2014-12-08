@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -10,11 +13,19 @@ using MVCForum.Domain.Constants;
 using MVCForum.Domain.DomainModel;
 using MVCForum.Domain.Interfaces.Services;
 using MVCForum.Utilities;
-
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using log4net;
+using Flurl;
 namespace MVCForum.Website.Application
 {
     public static class AppHelpers
     {
+        private static ILog _log = LogManager.GetLogger(typeof(AppHelpers).Name);
+        public const string BLOB_ROOT_URL = "https://nswebcontent.blob.core.windows.net";
+        public const string CDN_ROOT_URL = "https://az697144.vo.msecnd.net";
+
         #region Application
 
         public static string GetCurrentMvcForumVersion()
@@ -125,7 +136,7 @@ namespace MVCForum.Website.Application
             }
             return folders;
         }
-   
+
 
         #endregion
 
@@ -306,74 +317,145 @@ namespace MVCForum.Website.Application
             if (!string.IsNullOrEmpty(avatar))
             {
                 // Has an avatar image
-                return VirtualPathUtility.ToAbsolute(string.Concat(AppConstants.UploadFolderPath, userId, "/", avatar, string.Format("?width={0}&crop=0,0,{0},{0}", size)));
+                var imageSizeString = string.Format("?width={0}&crop=0,0,{0},{0}", size);
+                var memberImageUrl = Url.Combine(CDN_ROOT_URL,
+                    ConfigurationManager.AppSettings["ImageBlobContainerName"],
+                    GetUploadBlobDirectory(userId), avatar);
+                _log.DebugFormat("memberImageUrl: {0}", memberImageUrl);
+                return memberImageUrl;
             }
+
             return StringUtils.GetGravatarImage(email, size);
         }
 
-        public static UploadFileResult UploadFile(HttpPostedFileBase file, string uploadFolderPath, ILocalizationService localizationService, bool onlyImages = false)
+
+        public static string GetUploadBlobDirectory(Guid userId)
+        {
+            var uploadDirectory = string.Format("uploads/{0}", userId.ToString());
+            _log.DebugFormat("uploadDirectory: {0}", uploadDirectory);
+            return uploadDirectory;
+        }
+
+        public static UploadFileResult UploadFile(HttpPostedFileBase file,
+            string uploadDirectoryPath, ILocalizationService localizationService, bool onlyImages = false)
         {
             var upResult = new UploadFileResult { UploadSuccessful = true };
 
-            var fileName = Path.GetFileName(file.FileName);
-            if (fileName != null)
+            try
             {
-                //Before we do anything, check file size
-                if (file.ContentLength > Convert.ToInt32(ConfigUtils.GetAppSetting("FileUploadMaximumFileSizeInBytes")))
+                var fileName = Path.GetFileName(file.FileName);
+                if (fileName != null)
                 {
-                    //File is too big
-                    upResult.UploadSuccessful = false;
-                    upResult.ErrorMessage = localizationService.GetResourceString("Post.UploadFileTooBig");
-                    return upResult;
-                }
-
-                // now check allowed extensions
-                var allowedFileExtensions = ConfigUtils.GetAppSetting("FileUploadAllowedExtensions");
-
-                if (onlyImages)
-                {
-                    allowedFileExtensions = "jpg,jpeg,png,gif";
-                }
-
-                if (!string.IsNullOrEmpty(allowedFileExtensions))
-                {
-                    // Turn into a list and strip unwanted commas as we don't trust users!
-                    var allowedFileExtensionsList = allowedFileExtensions.ToLower().Trim()
-                                                     .TrimStart(',').TrimEnd(',').Split(',').ToList();
-
-                    // Get the file extension
-                    var fileExtension = Path.GetExtension(fileName.ToLower());
-
-                    // If can't work out extension then just error
-                    if (string.IsNullOrEmpty(fileExtension))
+                    //Before we do anything, check file size
+                    if (file.ContentLength >
+                        Convert.ToInt32(ConfigUtils.GetAppSetting("FileUploadMaximumFileSizeInBytes")))
                     {
+                        //File is too big
                         upResult.UploadSuccessful = false;
-                        upResult.ErrorMessage = localizationService.GetResourceString("Errors.GenericMessage");
+                        upResult.ErrorMessage = localizationService.GetResourceString("Post.UploadFileTooBig");
                         return upResult;
                     }
 
-                    // Remove the dot then check against the extensions in the web.config settings
-                    fileExtension = fileExtension.TrimStart('.');
-                    if (!allowedFileExtensionsList.Contains(fileExtension))
+                    // now check allowed extensions
+                    var allowedFileExtensions = ConfigUtils.GetAppSetting("FileUploadAllowedExtensions");
+
+                    if (onlyImages)
                     {
-                        upResult.UploadSuccessful = false;
-                        upResult.ErrorMessage = localizationService.GetResourceString("Post.UploadBannedFileExtension");
-                        return upResult;
+                        allowedFileExtensions = "jpg,jpeg,png,gif";
                     }
+                    ImageFormat imageFormat = null;
+                    string fileExtension = null;
+                    if (!string.IsNullOrEmpty(allowedFileExtensions))
+                    {
+                        // Turn into a list and strip unwanted commas as we don't trust users!
+                        var allowedFileExtensionsList = allowedFileExtensions.ToLower().Trim()
+                            .TrimStart(',').TrimEnd(',').Split(',').ToList();
+
+                        // Get the file extension
+                        fileExtension = Path.GetExtension(fileName.ToLower());
+
+                        // If can't work out extension then just error
+                        if (string.IsNullOrEmpty(fileExtension))
+                        {
+                            upResult.UploadSuccessful = false;
+                            upResult.ErrorMessage = localizationService.GetResourceString("Errors.GenericMessage");
+                            return upResult;
+                        }
+
+                        // Remove the dot then check against the extensions in the web.config settings
+                        fileExtension = fileExtension.TrimStart('.');
+                        if (!allowedFileExtensionsList.Contains(fileExtension))
+                        {
+                            upResult.UploadSuccessful = false;
+                            upResult.ErrorMessage =
+                                localizationService.GetResourceString("Post.UploadBannedFileExtension");
+                            return upResult;
+                        }
+                    }
+
+                    switch (fileExtension)
+                    {
+                        case "jpg":
+                        case "jpeg":
+                            imageFormat = ImageFormat.Jpeg;
+                            break;
+                        case "png":
+                            imageFormat = ImageFormat.Png;
+                            break;
+                        case "gif":
+                            imageFormat = ImageFormat.Gif;
+                            break;
+                    };
+
+                    // Sort the file name
+                    var newFileName = string.Format("{0}_{1}", GuidComb.GenerateComb(),
+                        fileName.Trim(' ').Replace("_", "-").Replace(" ", "-").ToLower());
+                    _log.DebugFormat("uploadDirectoryPath: {0}, newFileName: {1}", uploadDirectoryPath, newFileName);
+                    var blobName = Url.Combine(uploadDirectoryPath, newFileName);
+                    _log.DebugFormat("blobName: {0}", blobName);
+
+                    // Save the file to disk
+                    //file.SaveAs(path);
+
+                    // Retrieve storage account from connection string.
+                    var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
+
+                    // Create the blob client.
+                    var blobClient = storageAccount.CreateCloudBlobClient();
+                    // Retrieve reference to a previously created container.
+                    var containerName = ConfigurationManager.AppSettings["ImageBlobContainerName"];
+                    var container = blobClient.GetContainerReference(containerName);
+
+                    // Retrieve reference to a blob named "myblob".
+                    //To add on to what Egon said, 
+                    //simply create your blob called "folder/1.txt", and it will work. No need to create a directory.
+                    //var blobDirectory = container.GetDirectoryReference("");
+
+                    var blockBlob = container.GetBlockBlobReference(blobName);
+                    // Create or overwrite the "myblob" blob with contents from a local file.
+                    using (var fileStream = file.InputStream)
+                    using (var image = Image.FromStream(fileStream).ScaleToSquare(100))
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        _log.DebugFormat("imageFormat: {0}", imageFormat);
+                        image.Save(memoryStream, imageFormat);
+                        _log.DebugFormat("memoryStream.Length: {0}",memoryStream.Length);
+                        blockBlob.UploadFromByteArray(memoryStream.ToArray(), 0,(int) memoryStream.Length);
+                    }
+
+                    var fileUrl = Url.Combine(BLOB_ROOT_URL, containerName, blobName);
+                    _log.DebugFormat("uploaded fileUrl: {0}", fileUrl);
+
+                    upResult.UploadedFileName = newFileName;
+                    upResult.UploadedFileUrl = fileUrl;
                 }
 
-                // Sort the file name
-                var newFileName = string.Format("{0}_{1}", GuidComb.GenerateComb(), fileName.Trim(' ').Replace("_", "-").Replace(" ", "-").ToLower());
-                var path = Path.Combine(uploadFolderPath, newFileName);
-
-                // Save the file to disk
-                file.SaveAs(path);
-
-                var hostingRoot = HostingEnvironment.MapPath("~/") ?? "";
-                var fileUrl = path.Substring(hostingRoot.Length).Replace('\\', '/').Insert(0, "/");
-
-                upResult.UploadedFileName = newFileName;
-                upResult.UploadedFileUrl = fileUrl;                
+            }
+            catch (Exception ex)
+            {
+                upResult.ErrorMessage = ex.Message;
+                upResult.UploadSuccessful = false;
+                _log.Error(ex);
             }
 
             return upResult;

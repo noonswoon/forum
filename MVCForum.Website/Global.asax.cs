@@ -15,6 +15,7 @@ using MVCForum.Domain.Interfaces.Services;
 using MVCForum.Domain.Interfaces.UnitOfWork;
 using MVCForum.Utilities;
 using MVCForum.Website.Application;
+using log4net.Config;
 
 namespace MVCForum.Website
 {
@@ -104,6 +105,8 @@ namespace MVCForum.Website
 
         protected void Application_Start()
         {
+            XmlConfigurator.Configure();
+
             // Register routes
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);

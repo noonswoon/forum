@@ -108,7 +108,7 @@
 
 
         //Uploads
-        public const string UploadFolderPath = "~/content/uploads/";
+        //public const string UploadFolderPath = "~/content/uploads/";
 
         //Social login Attributes
         public const string LoginGoogleFirstName = "http://axschema.org/namePerson/first";
