@@ -594,10 +594,20 @@ h3 {
 .postmemberavatar img {
     width: 50px;
 }
+.addthis_button_facebook {
+    background: url('../Images/icon-facebook.png') no-repeat;
+}
 .addthis_button_twitter {
+    background: url('../Images/icon-twitter.png') no-repeat;
+}
+.addthis_button_facebook, .addthis_button_twitter {
     width: 35px;
     height: 35px;
-    background: url() no-repeat;
+    margin-right: 5px;
+    background-size: 100% auto;
+}
+.addthis_button_facebook span, .addthis_button_twitter span{
+    background: none;
 }
 /*.postbody {
     font-size: 16px;
