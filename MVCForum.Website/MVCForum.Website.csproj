@@ -1479,7 +1479,9 @@
     <Content Include="Themes\n3o\Content\Images\arrow-spinner-blue.gif" />
     <Content Include="Themes\n3o\Content\Images\facebook-connect-large.png" />
     <Content Include="Themes\n3o\Content\Images\favicon.ico" />
+    <Content Include="Themes\n3o\Content\Images\icon-facebook.png" />
     <Content Include="Themes\n3o\Content\Images\icon-media.png" />
+    <Content Include="Themes\n3o\Content\Images\icon-twitter.png" />
     <Content Include="Themes\n3o\Content\Images\logo.png" />
     <Content Include="Themes\n3o\Content\Images\mail-add.png" />
     <Content Include="Themes\n3o\Content\Images\mail-delete.png" />
