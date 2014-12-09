@@ -594,6 +594,11 @@ h3 {
 .postmemberavatar img {
     width: 50px;
 }
+.addthis_button_twitter {
+    width: 35px;
+    height: 35px;
+    background: url() no-repeat;
+}
 /*.postbody {
     font-size: 16px;
     line-height: 35px;
