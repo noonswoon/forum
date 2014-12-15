@@ -1477,6 +1477,7 @@
     <Content Include="Themes\n3o\Content\Images\admin-n3o-logo.png" />
     <Content Include="Themes\n3o\Content\Images\apple-touch-icon-57-precomposed.png" />
     <Content Include="Themes\n3o\Content\Images\arrow-spinner-blue.gif" />
+    <Content Include="Themes\n3o\Content\Images\bg-body.jpg" />
     <Content Include="Themes\n3o\Content\Images\facebook-connect-large.png" />
     <Content Include="Themes\n3o\Content\Images\favicon.ico" />
     <Content Include="Themes\n3o\Content\Images\icon-facebook.png" />
