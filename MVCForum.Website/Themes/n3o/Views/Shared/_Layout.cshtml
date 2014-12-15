@@ -79,26 +79,24 @@
                     <li><a href="http://noonswoonapp.com/premium" title="Premium">Premium</a></li>
                     <li><a href="http://community.noonswoonapp.com/">Community</a></li>
                     <li><a href="http://blog.noonswoonapp.com/" title="Blog">Blog</a></li>
-                    <li><a href="http://noonswoonapp.com/home/careers" title="Careers">Careers</a></li>                    
+                    <li><a href="http://noonswoonapp.com/home/careers" title="Careers">Careers</a></li> 
+                    <!--<li><a href="@Url.Action("index", "encourager")">To Be An Encourager</a></li>-->
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
                     @if (!User.Identity.IsAuthenticated)
                     {
                         if (Html.Settings().SuspendRegistration != true)
                         {
-                        <li><a href="@Url.Action("Register", "Members")">@Html.LanguageString("Layout.Nav.Register")</a></li>
+                        <li><span class="glyphicon glyphicon-user"></span> <a href="@Url.Action("Register", "Members")">@Html.LanguageString("Layout.Nav.Register")</a></li>
                         }
-                        <li><a href="@Url.Action("LogOn", "Members")">@Html.LanguageString("Layout.Nav.Logon")</a></li>
+                        <li><span class="glyphicon glyphicon-log-in"></span> <a href="@Url.Action("LogOn", "Members")">@Html.LanguageString("Layout.Nav.Logon")</a></li>
                     }
                     @if (User.IsInRole(AppConstants.AdminRoleName))
                     {
-                        <li><a href="@Url.Action("Index", "Admin", new { area = "Admin" }, null)">@Html.LanguageString("Layout.Nav.Admin")</a></li>
+                        <li><span class="glyphicon glyphicon-star"></span> <a href="@Url.Action("Index", "Admin", new { area = "Admin" }, null)">@Html.LanguageString("Layout.Nav.Admin")</a></li>
                     }
-                    <!--<li><a href="@Url.Action("index", "premium")">Premium</a></li>
-                <li><a href="@Url.Action("index", "encourager")">To Be An Encourager</a></li>-->
                 </ul>
-
-                <!--<ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Already Member ? <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            </ul>-->
             </div>
         </div>
     </nav>
