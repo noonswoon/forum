@@ -1844,6 +1844,16 @@
     <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew.svg" />
     <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew.ttf" />
     <Content Include="Themes\n3o\Content\webfontkit\thsarabunnew.woff" />
+    <Content Include="Themes\n3o\Content\webfontkit\edpensook-normaltone.eot" />
+    <Content Include="Themes\n3o\Content\webfontkit\edpensook-normaltone.otf" />
+    <Content Include="Themes\n3o\Content\webfontkit\edpensook-normaltone.svg" />
+    <Content Include="Themes\n3o\Content\webfontkit\edpensook-normaltone.ttf" />
+    <Content Include="Themes\n3o\Content\webfontkit\edpensook-normaltone.woff" />
+    <Content Include="Themes\n3o\Content\webfontkit\quark-light.eot" />
+    <Content Include="Themes\n3o\Content\webfontkit\quark-light.otf" />
+    <Content Include="Themes\n3o\Content\webfontkit\quark-light.svg" />
+    <Content Include="Themes\n3o\Content\webfontkit\quark-light.ttf" />
+    <Content Include="Themes\n3o\Content\webfontkit\quark-light.woff" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

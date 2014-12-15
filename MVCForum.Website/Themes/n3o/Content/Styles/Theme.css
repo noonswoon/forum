@@ -553,6 +553,10 @@ body {
     background: url('../Images/bg-body.jpg') no-repeat;
     background-size: 100% auto;
 }
+h1, h2, h3, h4 {
+    font-family: 'EDPensook-NormalTone';
+    font-weight: 100;
+}
 h3 {
     font-size: 18px;    
 }
@@ -560,7 +564,7 @@ h3 {
     padding-top: 15px;
 }
 .topicrowdetails h3 a {
-    font-family: 'DBAdmanXRegular';
+    font-family: 'EDPensook-NormalTone';
     color: black;
     font-size: 22px;
 }
@@ -594,7 +598,6 @@ div.tagsinput {
     }
 }
 .latesttopicheading h2 {
-    font-family: 'SegoeScript';
     font-size: 50px;
     font-weight: normal;
 }
@@ -659,6 +662,7 @@ div.tagsinput {
     margin-bottom: 0;
 }
 #myNavbar {
+    font-family: 'EDPensook-NormalTone';
     padding-top: 5px;
 }
 #myNavbar.collapsing, #myNavbar.in{
@@ -728,6 +732,8 @@ div.tagsinput {
 }
 
 #menu{
+    font-family: 'EDPensook-NormalTone';
+    font-size: larger;
     text-align: center;
     line-height: 20px;
 }
