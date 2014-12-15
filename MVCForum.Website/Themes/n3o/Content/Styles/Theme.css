@@ -550,6 +550,8 @@ input[type="radio"].pollanswerselect { margin: 3px 0 0 15px; float: left; }
 }
 body {
     font-size: 15px;
+    background: url('../Images/bg-body.jpg') no-repeat;
+    background-size: 100% auto;
 }
 h3 {
     font-size: 18px;    
@@ -579,8 +581,22 @@ h3 {
     background-color: #fdf1c2;
     border-color: white;
 }
+div.tagsinput {
+    background: none;
+}
+.sidelayoutsection {
+    position: fixed;
+    right: 30px;
+}
+@media (max-width: 767px) {
+    .sidelayoutsection {
+        position: initial;
+    }
+}
 .latesttopicheading h2 {
     font-family: 'SegoeScript';
+    font-size: 50px;
+    font-weight: normal;
 }
 .activememberslist img {
     width: 25px;
