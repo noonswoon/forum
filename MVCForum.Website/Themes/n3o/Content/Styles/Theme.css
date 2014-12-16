@@ -545,7 +545,6 @@ input[type="radio"].pollanswerselect { margin: 3px 0 0 15px; float: left; }
 
 /*-------------------------------------Common CSS Rules For All Pages--------------------------------*/
 .topicheaderholder h1, .categoryheading h2 {
-    font-family: 'DBAdmanXRegular';
     color: #07507d;
 }
 body {
@@ -588,15 +587,6 @@ h3 {
 div.tagsinput {
     background: none;
 }
-.sidelayoutsection {
-    position: fixed;
-    right: 30px;
-}
-@media (max-width: 767px) {
-    .sidelayoutsection {
-        position: initial;
-    }
-}
 .latesttopicheading h2 {
     font-size: 50px;
     font-weight: normal;
@@ -612,6 +602,9 @@ div.tagsinput {
 }
 .postmemberavatar img {
     width: 50px;
+}
+.mainlogonform h3, .mainregisterform h3{
+    font-size: 32px;
 }
 .addthis_button_facebook {
     background: url('../Images/icon-facebook.png') no-repeat;
@@ -643,6 +636,7 @@ div.tagsinput {
 
 /*-------------------------------------Header--------------------------------*/
 .navbar{
+    font-family: 'EDPensook-NormalTone';
     margin-bottom: 0px;
     /* background-color: #f9ffe5; */
     height: 40px;
@@ -662,7 +656,6 @@ div.tagsinput {
     margin-bottom: 0;
 }
 #myNavbar {
-    font-family: 'EDPensook-NormalTone';
     padding-top: 5px;
 }
 #myNavbar.collapsing, #myNavbar.in{
@@ -671,7 +664,7 @@ div.tagsinput {
 #myNavbar a{
     display: block;
     color: #333;
-    line-height: 25px;
+    line-height: 23px;
     text-transform: uppercase;
 }
 #myNavbar a:hover{
