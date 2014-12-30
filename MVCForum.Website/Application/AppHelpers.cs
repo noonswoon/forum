@@ -27,6 +27,14 @@ namespace MVCForum.Website.Application
         public const string CDN_ROOT_URL = "https://az697144.vo.msecnd.net";
 
         #region Application
+        public static string GetAbsolutePathImageUrl(string imageName, Guid userId)
+        {
+            return Url.Combine(
+                CDN_ROOT_URL,
+                ConfigurationManager.AppSettings["ImageBlobContainerName"],
+                GetUploadBlobDirectory(userId), imageName);
+        }
+
 
         public static string GetCurrentMvcForumVersion()
         {
@@ -337,8 +345,12 @@ namespace MVCForum.Website.Application
         }
 
         public static UploadFileResult UploadFile(HttpPostedFileBase file,
-            string uploadDirectoryPath, ILocalizationService localizationService, bool onlyImages = false)
+            string uploadDirectoryPath,
+            ILocalizationService localizationService,
+            int? newSquareSize,
+            bool onlyImages = false)
         {
+
             var upResult = new UploadFileResult { UploadSuccessful = true };
 
             try
@@ -433,14 +445,25 @@ namespace MVCForum.Website.Application
 
                     var blockBlob = container.GetBlockBlobReference(blobName);
                     // Create or overwrite the "myblob" blob with contents from a local file.
-                    using (var fileStream = file.InputStream)
-                    using (var image = Image.FromStream(fileStream).ScaleToSquare(100))
-                    using (var memoryStream = new MemoryStream())
+                    if (newSquareSize.HasValue)
                     {
-                        _log.DebugFormat("imageFormat: {0}", imageFormat);
-                        image.Save(memoryStream, imageFormat);
-                        _log.DebugFormat("memoryStream.Length: {0}",memoryStream.Length);
-                        blockBlob.UploadFromByteArray(memoryStream.ToArray(), 0,(int) memoryStream.Length);
+                        using (var fileStream = file.InputStream)
+                        using (var image = Image.FromStream(fileStream).ScaleToSquare(newSquareSize.Value))
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            _log.DebugFormat("imageFormat: {0}", imageFormat);
+                            image.Save(memoryStream, imageFormat);
+                            _log.DebugFormat("memoryStream.Length: {0}", memoryStream.Length);
+                            blockBlob.UploadFromByteArray(memoryStream.ToArray(), 0, (int)memoryStream.Length);
+                        }
+
+                    }
+                    else
+                    {
+                        using (var fileSteam = file.InputStream)
+                        {
+                            blockBlob.UploadFromStream(fileSteam);
+                        }
                     }
 
                     var fileUrl = Url.Combine(BLOB_ROOT_URL, containerName, blobName);
@@ -459,6 +482,14 @@ namespace MVCForum.Website.Application
             }
 
             return upResult;
+
+
+        }
+
+        public static UploadFileResult UploadFile(HttpPostedFileBase file,
+            string uploadDirectoryPath, ILocalizationService localizationService, bool onlyImages = false)
+        {
+            return UploadFile(file, uploadDirectoryPath, localizationService, null, onlyImages);
         }
 
         #endregion
