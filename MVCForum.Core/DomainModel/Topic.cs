@@ -31,7 +31,7 @@ namespace MVCForum.Domain.DomainModel
         public bool? Pending { get; set; }
         public string NiceUrl
         {
-            get { return UrlTypes.GenerateUrl(UrlType.Topic, Slug); }
+            get { return UrlTypes.GenerateUrl(UrlType.Topic, Id.ToString()); }
         }
 
         public int VoteCount

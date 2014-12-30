@@ -1146,8 +1146,12 @@ namespace MVCForum.Website.Controllers
                     if (file != null)
                     {
                         // If successful then upload the file
-                        var uploadResult = AppHelpers.UploadFile(file,
-                            AppHelpers.GetUploadBlobDirectory(LoggedOnUser.Id) , LocalizationService, true);                        
+                        var uploadResult = AppHelpers.UploadFile(
+                            file,
+                            AppHelpers.GetUploadBlobDirectory(LoggedOnUser.Id),
+                            LocalizationService,
+                            100,
+                            true);
 
                         if (!uploadResult.UploadSuccessful)
                         {
@@ -1161,7 +1165,7 @@ namespace MVCForum.Website.Controllers
 
 
                         // Save avatar to user
-                        user.Avatar = uploadResult.UploadedFileName;   
+                        user.Avatar = uploadResult.UploadedFileName;
 
                     }
 

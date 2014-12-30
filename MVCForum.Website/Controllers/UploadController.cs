@@ -10,6 +10,7 @@ using MVCForum.Utilities;
 using MVCForum.Website.Application;
 using MVCForum.Website.Areas.Admin.ViewModels;
 using MVCForum.Website.ViewModels;
+using log4net;
 
 namespace MVCForum.Website.Controllers
 {
@@ -21,6 +22,7 @@ namespace MVCForum.Website.Controllers
 
         private readonly MembershipUser LoggedOnUser;
         private readonly MembershipRole UsersRole;
+        private ILog _log = LogManager.GetLogger(typeof(UploadController).Name);
 
         public UploadController(ILoggingService loggingService, IUnitOfWorkManager unitOfWorkManager,
             IMembershipService membershipService, ILocalizationService localizationService, IRoleService roleService, ISettingsService settingsService,
@@ -206,6 +208,42 @@ namespace MVCForum.Website.Controllers
             }
             return ErrorToHomePage(LocalizationService.GetResourceString("Errors.GenericMessage"));
         }
+
+        public ActionResult UploadTopicContentImage()
+        {
+            var file = Request.Files[0];
+            var message = "";
+            var url = "";
+            if (file != null)
+            {
+                _log.Debug("file is not null");
+                // If successful then upload the file
+                var uploadResult = 
+                    AppHelpers.UploadFile(file, AppHelpers.GetUploadBlobDirectory(LoggedOnUser.Id), LocalizationService);
+                if (!uploadResult.UploadSuccessful)
+                {
+                    message = uploadResult.ErrorMessage;
+                }
+                // Add the filename to the database
+                url = AppHelpers.GetAbsolutePathImageUrl(uploadResult.UploadedFileName, LoggedOnUser.Id);
+                _log.DebugFormat("url: {0}", url);
+            }
+            var funcNum = Request.QueryString["CKEditorFuncNum"];
+            //echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$url', '$message');</script>"; 
+
+            //return JavaScript(string.Format("window.parent.CKEDITOR.tools.callFunction({0}, '{1}', '{2}');",
+            //    funcNum, url, message));
+
+            string output = @"<html><body><script>window.parent.CKEDITOR.tools.callFunction(" +
+                funcNum +
+                ", \"" +
+                url +
+                "\", \""
+                + message +
+                "\");</script></body></html>";
+            return Content(output);
+        }
+
 
     }
 } 
