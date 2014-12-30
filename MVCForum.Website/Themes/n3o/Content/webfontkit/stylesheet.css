@@ -84,3 +84,27 @@
 
 }
 
+@font-face {
+    font-family: 'Quark-Light';
+    src: url('quark-light.eot');
+    src: url('quark-light?#iefix') format('embedded-opentype'),
+         url('quark-light.woff') format('woff'),
+         url('quark-light.ttf') format('truetype'),
+         url('quark-light.svg#Quark-Light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'EDPensook-NormalTone';
+    src: url('edpensook-normaltone.eot');
+    src: url('edpensook-normaltone?#iefix') format('embedded-opentype'),
+         url('edpensook-normaltone.woff') format('woff'),
+         url('edpensook-normaltone.ttf') format('truetype'),
+         url('edpensook-normaltone.svg#EDPensook-NormalTone') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

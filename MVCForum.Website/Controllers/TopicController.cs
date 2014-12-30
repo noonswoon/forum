@@ -351,7 +351,7 @@ namespace MVCForum.Website.Controllers
             return ErrorToHomePage(LocalizationService.GetResourceString("Errors.NoPermission"));
         }
 
-        public ActionResult Show(string slug, int? p)
+     /*   public ActionResult Show(string slug, int? p)
         {
             // Set the page index
             var pageIndex = p ?? 1;
@@ -360,6 +360,127 @@ namespace MVCForum.Website.Controllers
             {
                 // Get the topic
                 var topic = _topicService.GetTopicBySlug(slug);
+
+                if (topic != null)
+                {
+                    // Note: Don't use topic.Posts as its not a very efficient SQL statement
+                    // Use the post service to get them as it includes other used entities in one
+                    // statement rather than loads of sql selects
+
+                    var sortQuerystring = Request.QueryString[AppConstants.PostOrderBy];
+                    var orderBy = !string.IsNullOrEmpty(sortQuerystring) ?
+                                              EnumUtils.ReturnEnumValueFromString<PostOrderBy>(sortQuerystring) : PostOrderBy.Standard;
+
+                    // Store the amount per page
+                    var amountPerPage = SettingsService.GetSettings().PostsPerPage;
+
+                    if (sortQuerystring == AppConstants.AllPosts)
+                    {
+                        // Overide to show all posts
+                        amountPerPage = int.MaxValue;
+                    }
+
+                    // Get the posts
+                    var posts = _postService.GetPagedPostsByTopic(pageIndex,
+                                                                  amountPerPage,
+                                                                  int.MaxValue,
+                                                                  topic.Id,
+                                                                  orderBy);
+
+                    // Get the topic starter post
+                    var topicStarter = _postService.GetTopicStarterPost(topic.Id);
+
+                    // Get the permissions for the category that this topic is in
+                    var permissions = RoleService.GetPermissions(topic.Category, UsersRole);
+
+                    // If this user doesn't have access to this topic then
+                    // redirect with message
+                    if (permissions[AppConstants.PermissionDenyAccess].IsTicked)
+                    {
+                        return ErrorToHomePage(LocalizationService.GetResourceString("Errors.NoPermission"));
+                    }
+
+                    // See if the user has subscribed to this topic or not
+                    var isSubscribed = UserIsAuthenticated && (_topicNotificationService.GetByUserAndTopic(LoggedOnUser, topic).Any());
+
+                    // Populate the view model for this page
+                    var viewModel = new ShowTopicViewModel
+                    {
+                        Topic = topic,
+                        Posts = posts,
+                        PageIndex = posts.PageIndex,
+                        TotalCount = posts.TotalCount,
+                        Permissions = permissions,
+                        User = LoggedOnUser,
+                        IsSubscribed = isSubscribed,
+                        UserHasAlreadyVotedInPoll = false,
+                        TopicStarterPost = topicStarter
+                    };
+
+                    // If there is a quote querystring
+                    var quote = Request["quote"];
+                    if (!string.IsNullOrEmpty(quote))
+                    {
+                        try
+                        {
+                            // Got a quote
+                            var postToQuote = _postService.Get(new Guid(quote));
+                            viewModel.PostContent = postToQuote.PostContent;
+                        }
+                        catch (Exception ex)
+                        {
+                            LoggingService.Error(ex);
+                        }
+                    }
+
+                    // See if the topic has a poll, and if so see if this user viewing has already voted
+                    if (topic.Poll != null)
+                    {
+                        // There is a poll and a user
+                        // see if the user has voted or not
+                        var votes = topic.Poll.PollAnswers.SelectMany(x => x.PollVotes).ToList();
+                        if (UserIsAuthenticated)
+                        {
+                            viewModel.UserHasAlreadyVotedInPoll = (votes.Count(x => x.User.Id == LoggedOnUser.Id) > 0);
+                        }
+                        viewModel.TotalVotesInPoll = votes.Count();
+                    }
+
+                    // User has permission lets update the topic view count
+                    // but only if this topic doesn't belong to the user looking at it
+                    var addView = !(UserIsAuthenticated && LoggedOnUser.Id == topic.User.Id);
+
+                    if (!BotUtils.UserIsBot() && addView)
+                    {
+                        // Cool, user doesn't own this topic
+                        topic.Views = (topic.Views + 1);
+                        try
+                        {
+                            unitOfWork.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            LoggingService.Error(ex);
+                        }
+                    }
+
+                    return View(viewModel);
+                }
+
+            }
+            return ErrorToHomePage(LocalizationService.GetResourceString("Errors.GenericMessage"));
+        }
+        */
+
+        public ActionResult Show(Guid id, int? p)
+        {
+            // Set the page index
+            var pageIndex = p ?? 1;
+
+            using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+            {
+                // Get the topic             
+                var topic = _topicService.Get(id);
 
                 if (topic != null)
                 {

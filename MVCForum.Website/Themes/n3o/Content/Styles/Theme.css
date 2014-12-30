@@ -545,11 +545,16 @@ input[type="radio"].pollanswerselect { margin: 3px 0 0 15px; float: left; }
 
 /*-------------------------------------Common CSS Rules For All Pages--------------------------------*/
 .topicheaderholder h1, .categoryheading h2 {
-    font-family: 'DBAdmanXRegular';
     color: #07507d;
 }
 body {
     font-size: 15px;
+    background: url('../Images/bg-body.jpg') no-repeat;
+    background-size: 100% auto;
+}
+h1, h2, h3, h4 {
+    font-family: 'EDPensook-NormalTone';
+    font-weight: 100;
 }
 h3 {
     font-size: 18px;    
@@ -558,7 +563,7 @@ h3 {
     padding-top: 15px;
 }
 .topicrowdetails h3 a {
-    font-family: 'DBAdmanXRegular';
+    font-family: 'EDPensook-NormalTone';
     color: black;
     font-size: 22px;
 }
@@ -579,8 +584,12 @@ h3 {
     background-color: #fdf1c2;
     border-color: white;
 }
+div.tagsinput {
+    background: none;
+}
 .latesttopicheading h2 {
-    font-family: 'SegoeScript';
+    font-size: 50px;
+    font-weight: normal;
 }
 .activememberslist img {
     width: 25px;
@@ -593,6 +602,24 @@ h3 {
 }
 .postmemberavatar img {
     width: 50px;
+}
+.mainlogonform h3, .mainregisterform h3{
+    font-size: 32px;
+}
+.addthis_button_facebook {
+    background: url('../Images/icon-facebook.png') no-repeat;
+}
+.addthis_button_twitter {
+    background: url('../Images/icon-twitter.png') no-repeat;
+}
+.addthis_button_facebook, .addthis_button_twitter {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    background-size: 100% auto;
+}
+.addthis_button_facebook span, .addthis_button_twitter span{
+    background: none;
 }
 /*.postbody {
     font-size: 16px;
@@ -609,6 +636,7 @@ h3 {
 
 /*-------------------------------------Header--------------------------------*/
 .navbar{
+    font-family: 'EDPensook-NormalTone';
     margin-bottom: 0px;
     /* background-color: #f9ffe5; */
     height: 40px;
@@ -636,7 +664,7 @@ h3 {
 #myNavbar a{
     display: block;
     color: #333;
-    line-height: 25px;
+    line-height: 23px;
     text-transform: uppercase;
 }
 #myNavbar a:hover{
@@ -697,6 +725,8 @@ h3 {
 }
 
 #menu{
+    font-family: 'EDPensook-NormalTone';
+    font-size: larger;
     text-align: center;
     line-height: 20px;
 }

@@ -71,18 +71,24 @@ namespace MVCForum.Website
                 new { controller = "Category", action = "Show", slug = UrlParameter.Optional } // Parameter defaults
             );
 
-            routes.MapRouteLowercase(
+      /*    routes.MapRouteLowercase(
                 "categoryRssUrls", // Route name
                 string.Concat(AppConstants.CategoryUrlIdentifier, "/rss/{slug}"), // URL with parameters
                 new { controller = "Category", action = "CategoryRss", slug = UrlParameter.Optional } // Parameter defaults
             );
-
+        
             routes.MapRouteLowercase(
                 "topicUrls", // Route name
-                string.Concat(AppConstants.TopicUrlIdentifier, "/{slug}"), // URL with parameters
+                string.Concat(AppConstants.TopicUrlIdentifier, "/{slug}"), // URL with parameters //chat/{chatTitle}
                 new { controller = "Topic", action = "Show", slug = UrlParameter.Optional } // Parameter defaults
-            );
+            ); */
 
+            routes.MapRouteLowercase(
+                "topicUrlsId", // Route name
+                string.Concat(AppConstants.TopicUrlIdentifier, "/{id}"), // URL with parameters
+                new { controller = "Topic", action = "Show", id = UrlParameter.Optional } // Parameter defaults
+            );
+           
             routes.MapRouteLowercase(
                 "memberUrls", // Route name
                 string.Concat(AppConstants.MemberUrlIdentifier, "/{slug}"), // URL with parameters
